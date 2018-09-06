@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the State feature.
+ */
+
+include_once 'state.features.inc';

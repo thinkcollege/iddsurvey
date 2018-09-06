@@ -1,0 +1,92 @@
+<?php
+/**
+ * @file
+ * Install, schema and uninstall hooks for the SurveyGizmo module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function surveygizmo_schema() {
+  $schema = array();
+
+  $schema['surveygizmo_survey'] = array(
+    'description' => 'Stores information about SurveyGizmo surveys managed by this site.',
+    'fields'      => array(
+      'survey_id'    => array(
+        'type'     => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'id'           => array(
+        'type'     => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'title'        => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => '',
+      ),
+      'team'         => array(
+        'type'     => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'  => 0,
+      ),
+      'status'       => array(
+        'type'     => 'varchar',
+        'length'   => 128,
+        'not null' => TRUE,
+      ),
+      'created_on'   => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0,
+      ),
+      'modified_on'  => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0,
+      ),
+      'edit_link'    => array(
+        'type'     => 'varchar',
+        'length'   => 512,
+        'not null' => TRUE,
+        'default'  => '',
+      ),
+      'publish_link' => array(
+        'type'     => 'varchar',
+        'length'   => 512,
+        'not null' => TRUE,
+        'default'  => '',
+      ),
+      'pages'        => array(
+        'type'      => 'blob',
+        'not null'  => FALSE,
+        'size'      => 'big',
+        'serialize' => TRUE,
+      ),
+    ),
+    'primary key' => array('survey_id', 'id'),
+    'indexes'     => array(
+      'survey'       => array('survey_id', 'id'),
+      'survey_title' => array('title'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function surveygizmo_uninstall() {
+  variable_del('surveygizmo_user');
+  variable_del('surveygizmo_password');
+  variable_del('surveygizmo_api_key');
+  variable_del('surveygizmo_consumer_key');
+  variable_del('surveygizmo_consumer_secret');
+  variable_del('surveygizmo_oauth_callback');
+}

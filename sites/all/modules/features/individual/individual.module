@@ -1,0 +1,98 @@
+<?php
+/**
+ * @file
+ * Code for the Individual feature.
+ */
+
+include_once 'individual.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+/*
+function individual_menu() {
+  $items = array();
+  $items['individual/delete/%/%'] = array(
+    'title' => 'Delete individual',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_individual_delete', 2, 3),
+    //'access callback' => array('_individual_delete_access'),
+    //'access arguments' => array(2, 3),
+    'access arguments' => array('edit any individual content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+*/
+
+/**
+ * Implements hook_og_permission().
+ */
+/*
+function individual_og_permission() {
+  return array(
+    'delete unpublish provider individual' => array(
+      'title' => t('Delete (unpublish) provider individual'),
+      'description' => t('Delete (unpublish) an individual from a provider.'),
+      // Determine to which role to limit the permission. For example the
+      // "subscribe" can't be assigned only to a non-member, as a member doesn't
+      // need it.
+      'roles' => array(OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+      // Determine to which roles the permissions will be enabled by default.
+      'default role' => array(OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+    ),
+  );
+}
+*/
+
+/*
+ * Custom confirmation form for deleting (unpublishing) individuals.
+ */
+/*
+function _individual_delete($form, &$form_state, $nid, $pid) {
+  $form = array();
+  $form['nid'] = array(
+    '#type' => 'value',
+    '#value' => $nid,
+  );
+  $form['pid'] = array(
+    '#type' => 'value',
+    '#value' => $pid,
+  );
+
+  $individual = node_load($nid);
+  $provider = node_load($pid);
+
+  return confirm_form(
+    $form,
+    t('Are you sure you want to delete %individual?', array('%individual' => $individual->title)),
+    'provider/' . $pid . '/individuals',
+    t('This action will remove %individual from the provider %provider.', array('%individual' => $individual->title, '%provider' => $provider->title)),
+    t('Delete'),
+    t('Cancel')
+  );
+
+  return $form;
+}
+*/
+
+/**
+ * Submit handler for form to delete (unpublish) individuals.
+ */
+/*
+function _individual_delete_submit($form, &$form_state) {
+  if ($form_state['values']['nid'] > 1) {
+    $nid = $form_state['values']['nid'];
+    $pid = $form_state['values']['pid'];
+    $individual = node_load($nid);
+    $provider = node_load($pid);
+    $individual->status = 0;
+    node_save($individual);
+    drupal_set_message(t('%individual has been deleted from the provider %provider.', array('%individual' => $individual->title, '%provider' => $provider->title)));
+  }
+  else {
+    drupal_set_message(t('An error occured, no individuals deleted.'));
+  }
+  $form_state['redirect'] = 'provider/' . $form_state['values']['pid'] . '/individuals';
+}
+*/
