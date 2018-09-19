@@ -306,7 +306,7 @@ $iscurrent = $curreptid == $surveyrepid ? 'Yes' : 'No';
 function iddnodeform_form_alter(&$form, &$form_state, $form_id) {
 global $nid;
 if ($form_id == 'idd_survey_node_form') {
-   $form_state['no_cache'] = TRUE;
+  // $form_state['no_cache'] = TRUE;
    if (arg(0) == 'node' && is_numeric(arg(1)))   $nid = arg(1);
    
 $getyear = iddnodeform_get_years($nid);
