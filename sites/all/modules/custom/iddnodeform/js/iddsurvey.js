@@ -118,6 +118,15 @@ Drupal.behaviors.iddsurveyremoveIntWarn = {
 
 } ;
 
+Drupal.behaviors.iddsurveyValidEmail = {
+  attach: function (context, settings) {
+
+  $('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').bind("blur",checkEmailValidation);
+
+  }
+
+} ;
+
 Drupal.behaviors.iddsurveyMakeActive = {
 
   attach: function (context, settings) {
@@ -253,6 +262,20 @@ function removeCommas() {
         $(el).val($(el).val().replace(/,/g, ''));
     }
   });
+
+}
+
+function checkEmailValidation() {
+  var email = $('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').val();
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if  (!regex.test(email)) {
+ 
+  $('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').before('<p class="reqNumwarn"><strong>That is not a valid email address.</strong></p>');
+  $('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').val("not.valid@please.change"); }
+  else { 
+  if ($('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').val() != "not.valid@please.change") {
+    $('#edit-field-surv-coord-contact-und-0-field-surv-co-email p.reqNumwarn').remove();}
+   }
 
 }
 
