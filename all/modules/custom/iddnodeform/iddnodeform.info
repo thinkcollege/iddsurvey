@@ -1,0 +1,4 @@
+name = IDD Node form
+description = "Provides custom node form for IDD survey
+package = sdata
+core = 7.x

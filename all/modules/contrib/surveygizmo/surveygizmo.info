@@ -1,0 +1,15 @@
+name = SurveyGizmo
+description = Embed and administer SurveyGizmo surveys and forms.
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = views
+
+; Views handlers
+files[] = includes/views/handlers/surveygizmo_handler_field_survey.inc
+; Information added by Drupal.org packaging script on 2015-10-02
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "surveygizmo"
+datestamp = "1443786840"
+

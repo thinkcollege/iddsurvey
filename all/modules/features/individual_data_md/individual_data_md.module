@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Individual Data (MD) feature.
+ */
+
+include_once 'individual_data_md.features.inc';

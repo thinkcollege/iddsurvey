@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Shared feature.
+ */
+
+include_once 'shared.features.inc';

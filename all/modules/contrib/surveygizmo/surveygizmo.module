@@ -1,0 +1,211 @@
+<?php
+/**
+ * @file
+ * SurveyGizmo module main file.
+ */
+
+require_once 'includes/surveygizmo.helpers.inc';
+
+/**
+ * Implements hook_libraries_info().
+ */
+function surveygizmo_libraries_info() {
+  return array(
+    'surveygizmo-api-php' => array(
+      'name'         => 'SurveyGizmo API PHP',
+      'vendor url'   => 'https://github.com/profak/surveygizmo-api-php',
+      'download url' => 'https://github.com/profak/surveygizmo-api-php/releases',
+      'version'      => '0.4',
+    ),
+  );
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Requires library for SurveyGizmo.
+ */
+function surveygizmo_init() {
+  $path = libraries_get_path('surveygizmo-api-php');
+  if (is_readable($path . '/vendor/autoload.php')) {
+    require_once $path . '/vendor/autoload.php';
+  }
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function surveygizmo_entity_info() {
+  $info = array();
+  $info['survey'] = array(
+    'label'            => t('Survey'),
+    'label callback'   => 'surveygizmo_survey_label',
+    'plural label'     => t('Surveys'),
+    'base table'       => 'surveygizmo_survey',
+    'fieldable'        => FALSE,
+    'entity keys'      => array(
+      'id' => 'survey_id',
+    ),
+    'module'           => 'surveygizmo',
+    'controller class' => 'EntityAPIController',
+    'bundles'          => array(),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function surveygizmo_permission() {
+  return array(
+    'take surveygizmo surveys'    => array(
+      'title'       => t('Take SurveyGizmo surveys'),
+      'description' => t('Allows the user to view and submit survey content.'),
+    ),
+    'view surveygizmo statistics' => array(
+      'title'       => t('View SurveyGizmo statistics'),
+      'description' => t('Allows the user to view statical summaries of completed surveys.'),
+    ),
+    'administer surveygizmo'      => array(
+      'title'       => t('Administer SurveyGizmo'),
+      'description' => t('Allows the user to configure the SurveyGizmo module.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function surveygizmo_menu() {
+  $items = array();
+
+  $items['admin/config/content/surveygizmo'] = array(
+    'title'            => 'SurveyGizmo',
+    'description'      => 'Configure SurveyGizmo settings.',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('surveygizmo_admin_settings'),
+    'access arguments' => array('administer surveygizmo'),
+    'weight'           => 5,
+    'file'             => 'includes/surveygizmo.admin.inc',
+    'context'             => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['admin/config/content/surveygizmo/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['admin/config/content/surveygizmo/refresh'] = array(
+    'title'            => 'Refresh',
+    'description'      => 'Refresh info from SurveyGizmo',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('surveygizmo_refresh_form'),
+    'access arguments' => array('administer surveygizmo'),
+    'weight'           => 5,
+    'file'             => 'includes/surveygizmo.admin.inc',
+    'type'             => MENU_LOCAL_TASK,
+    'context'          => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['get-survey/%'] = array(
+    'type'              => MENU_CALLBACK,
+    'access arguments'  => array('access content'),
+    'page arguments'    => array(1),
+    'page callback'     => 'surveygizmo_get_survey',
+    'delivery callback' => 'drupal_json_output',
+    'file'              => 'includes/surveygizmo.callback.inc',
+  );
+
+  $items['submit-survey'] = array(
+    'type'            => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'page callback'   => 'surveygizmo_submit_survey',
+    'file'            => 'includes/surveygizmo.callback.inc',
+    'delivery callback' => 'drupal_json_output',
+  );
+
+  $items['survey/%survey'] = array(
+    'title callback'   => 'surveygizmo_survey_label',
+    'title arguments'  => array(1),
+    'page callback'    => 'surveygizmo_survey_page',
+    'page arguments'   => array(1),
+    'access callback'  => 'surveygizmo_survey_access',
+    'access arguments' => array('view', 1),
+    'weight'           => 0,
+    'file'             => 'includes/surveygizmo.pages.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Menu callback to present a survey as a Drupal page with embedded javascript.
+ *
+ * @param $path used to identify the survey to be presented.
+ *
+ */
+function surveygizmo_present_survey($sgid) {
+  // Get the survey details from SurveyGizmo.
+  $survey = surveygizmo_get_survey_obj($sgid);
+  $survey_info = surveygizmo_get_survey_info($sgid);
+
+  switch ($survey_info->embed_format) {
+    case 'iframe':
+      // iframe format
+      $output = '<iframe src="';
+      $output .= $survey->links->campaign;
+      $output .= '?__no_style=true" frameborder="0" width="700"';
+      $output .= ' style="overflow:hidden"></iframe>';
+      break;
+    case 'javascript':
+      // Javascript format
+      $survey_url = explode('com', $survey->links->campaign);
+      $output = '<script type="text/javascript" >document.write';
+      $output .= '(\'<script src="http\' + ( ("https:" == document';
+      $output .= '.location.protocol) ? "s" : "") + \'://www.surveygizmo.com';
+      $output .= $survey_url[1];
+      $output .= '?__no_style=true&__output=embedjs&__ref=\' + escape(document.location)';
+      $output .= ' + \'" type="text/javascript" ></scr\'  + \'ipt>\');</script>';
+      $output .= '<noscript><a href="http://www.surveygizmo.com';
+      $output .= $survey_url[1];
+      $output .= '?jsfallback=true">Click here to take this survey now</a>';
+      $output .= '</noscript>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function surveygizmo_cron() {
+  surveygizmo_refresh_surveys();
+  variable_set('surveygizmo_cron_last_run', REQUEST_TIME);
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function surveygizmo_views_api() {
+  return array(
+    'api'  => 3,
+    'path' => drupal_get_path('module', 'surveygizmo') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_views_pre_build().
+ *
+ * We enhance surveys overview view with refresh link.
+ */
+function surveygizmo_views_pre_view(&$view, &$display_id, &$args) {
+  if ($view->name == 'surveys') {
+    $message = t('You can refresh survey info !here<br/>', array('!here' => l(t('here'), 'admin/config/content/surveygizmo')));
+    $view->add_item('page', 'header', 'views', 'area_text_custom', array(
+      'empty'    => TRUE,
+      'content'  => $message,
+      'tokenize' => 0,
+    ));
+  }
+}
