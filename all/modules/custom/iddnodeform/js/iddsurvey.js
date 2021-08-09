@@ -377,7 +377,7 @@ linkURL = $(location).attr('href');
  hashLink = window.location.hash;
 
  // alert(linkURL);
-$('.vertical-tabs-panes fieldset').each(function(i, el) {
+$('.vertical-tabs-panes > fieldset').each(function(i, el) {
 
 
 
@@ -389,7 +389,7 @@ $(elm).attr( 'aria-expanded', 'false').parent('li').removeClass('active selected
   });
 
 
-$('.vertical-tabs-panes fieldset' + hashLink).addClass('active').find('> div').addClass('in');
+$('.vertical-tabs-panes > fieldset' + hashLink).addClass('active').find('> div').addClass('in');
 $('a[href="' + hashLink + '"]').attr( 'aria-expanded', 'true').parent('li').addClass('active selected');
 
 

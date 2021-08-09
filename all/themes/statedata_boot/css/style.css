@@ -368,3 +368,7 @@ input#edit-field-save-and-return-und {transform:scale(1.4, 1.4); outline: 1px so
 #field-specify-reporting-dates-add-more-wrapper {margin-top: 12px;}
 fieldset.date-combo .container-inline-date #edit-field-specify-reporting-dates-und-0-value.date-padding, fieldset.date-combo .container-inline-date .date-padding { padding: 0; }
 #edit-field-specify-reporting-dates fieldset .panel-body { padding: 3px;}
+h3.specifyRep {margin: 0 10px;margin-bottom: 18px; color: #94132F;}
+#field-specify-reporting-dates-add-more-wrapper fieldset {margin-bottom: 2px;}
+
+label[for="edit-field-specify-reporting-dates-und-0-value2"] {display: block; float: none;}
