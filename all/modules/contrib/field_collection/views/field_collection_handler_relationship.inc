@@ -55,5 +55,4 @@ class field_collection_handler_relationship extends views_handler_relationship {
     }
     return $this->table_alias;
   }
-
 }

@@ -25,10 +25,6 @@ function field_collection_field_render_revision($item, $context) {
   $view_mode = $context['view_mode'];
   $entity = entity_revision_load($entity_type, $item['revision_id']);
 
-  if(empty($entity)) {
-    return array();
-  }
-
   $field_context = $context;
   $field_context['entity_type'] = $entity_type;
   $field_context['bundle'] = $bundle_name;
@@ -60,7 +56,7 @@ function field_collection_field_render_revision($item, $context) {
 
     // We provide a loose check on the field access.
     if (field_access('view', $field, $entity_type) || field_access('edit', $field, $entity_type)) {
-      $langcode = !empty($entity) ? field_language($entity_type, $entity, $field_name) : LANGUAGE_NONE;
+      $langcode = field_language($entity_type, $entity, $field_name);
       $field_context['language'] = $langcode;
       $field_context['field'] = $field;
       $field_context['instance'] = $instance;

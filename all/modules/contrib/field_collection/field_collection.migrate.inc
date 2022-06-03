@@ -25,11 +25,6 @@
  * @see http://drupal.org/node/1900640
  */
 
-// Avoid issues when migrate module is disabled.
-if (!class_exists('MigrateDestinationEntity')) {
-  return;
-}
-
 /**
  * Destination class implementing migration into field_collection.
  */
@@ -89,7 +84,7 @@ class MigrateDestinationFieldCollection extends MigrateDestinationEntity {
    * @param $row
    *   Raw source data object - passed through to prepare/complete handlers.
    *
-   * @return array|bool
+   * @return array|false
    *   Array of key fields (item_id only in this case) of the collection that
    *   was saved or FALSE on failure.
    */
@@ -98,10 +93,8 @@ class MigrateDestinationFieldCollection extends MigrateDestinationEntity {
     if (isset($row->migrate_map_destid1)) {
       // We're updated an existing entity - start from the previous data.
       // entity_load() returns an array, so we get the field collection entity
-      // with reset().
-      $result = entity_load('field_collection_item', array($row->migrate_map_destid1), array(), TRUE);
-      $entity = reset($result);
-      if ($entity) {
+      // with array_shift().
+      if ($entity = array_shift(entity_load('field_collection_item', array($row->migrate_map_destid1), array(), TRUE))) {
         $entity_old = clone $entity;
         $updating = TRUE;
       }
@@ -133,7 +126,7 @@ class MigrateDestinationFieldCollection extends MigrateDestinationEntity {
 
     $this->prepare($entity, $row);
 
-    // Restore fields from original field_collection_item if updating.
+    // Restore fields from original field_collection_item if updating
     if ($updating) {
       foreach ($entity as $field => $value) {
         if ('field_' != substr($field, 0, 6)) {
@@ -184,7 +177,6 @@ class MigrateDestinationFieldCollection extends MigrateDestinationEntity {
     $this->completeRollback($item_id);
     return TRUE;
   }
-
 }
 
 /**

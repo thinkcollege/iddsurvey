@@ -261,7 +261,6 @@ function page_manager_page_theme(&$items, $task) {
  *   creating named arguments in the path.
  */
 function page_manager_page_execute($subtask_id) {
-  $func_args = func_get_args();
   $page = page_manager_page_load($subtask_id);
   $task = page_manager_get_task($page->task);
   $subtask = page_manager_get_task_subtask($task, $subtask_id);
@@ -269,7 +268,7 @@ function page_manager_page_execute($subtask_id) {
   // Turn the contexts into a properly keyed array.
   $contexts = array();
   $args = array();
-  foreach ($func_args as $count => $arg) {
+  foreach (func_get_args() as $count => $arg) {
     if (is_object($arg) && get_class($arg) == 'ctools_context') {
       $contexts[$arg->id] = $arg;
       $args[] = $arg->original_argument;
@@ -431,7 +430,7 @@ function page_manager_page_save(&$page) {
 /**
  * Remove a page subtask.
  */
-function page_manager_page_delete($page, $skip_menu_rebuild = FALSE) {
+function page_manager_page_delete($page) {
   $task = page_manager_get_task($page->task);
   if ($function = ctools_plugin_get_function($task, 'delete')) {
     $function($page);
@@ -449,11 +448,7 @@ function page_manager_page_delete($page, $skip_menu_rebuild = FALSE) {
   // rebuild this page again.
   ctools_include('export');
   ctools_export_load_object_reset('page_manager_pages');
-  // Allow menu rebuild to be skipped when calling code is deleting multiple
-  // pages.
-  if (!$skip_menu_rebuild) {
-    menu_rebuild();
-  }
+  menu_rebuild();
 }
 
 /**

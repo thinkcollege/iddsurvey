@@ -30,7 +30,7 @@ class field_validation_length_validator extends field_validation_validator {
       }
       if (isset($settings['max']) && $settings['max'] != '') {
         $max = token_replace($settings['max'], array($this->get_token_type() => $this->entity));
-		if ($length > $max) {
+		if ($this->value > $max) {
           $flag = FALSE;
         }
       }       

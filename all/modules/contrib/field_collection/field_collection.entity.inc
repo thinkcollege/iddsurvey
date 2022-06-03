@@ -192,7 +192,6 @@ class FieldCollectionItemEntity extends Entity {
       list($this->hostEntityId, $this->hostEntityRevisionId) = entity_extract_ids($this->hostEntityType, $this->hostEntity);
       // If the host entity is not saved yet, set the id to FALSE. So
       // fetchHostDetails() does not try to load the host entity details.
-      // Checking value of $this->hostEntityId.
       if (!isset($this->hostEntityId)) {
         $this->hostEntityId = FALSE;
       }
@@ -232,7 +231,7 @@ class FieldCollectionItemEntity extends Entity {
     }
     list($recieved_id) = entity_extract_ids($this->hostEntityType, $entity);
 
-    if ($this->isInUse() && !empty($this->hostEntityId)) {
+    if ($this->isInUse()) {
       $current_id = $this->hostEntityId;
     }
     else {
@@ -301,7 +300,7 @@ class FieldCollectionItemEntity extends Entity {
   }
 
   protected function fetchHostDetails() {
-    if (!isset($this->hostEntityId) || (!$this->hostEntityId && $this->hostEntityRevisionId)) {
+    if (!isset($this->hostEntityId)) {
       if ($this->item_id) {
         // For saved field collections, query the field data to determine the
         // right host entity.
@@ -311,25 +310,16 @@ class FieldCollectionItemEntity extends Entity {
           $query->age(FIELD_LOAD_REVISION);
         }
         $result = $query->execute();
-        if ($result) {
-          $this->hostEntityType = key($result);
-          $data = current($result);
+        list($this->hostEntityType, $data) = each($result);
 
-          if ($this->isInUse()) {
-            $data_array_keys = array_keys($data);
-            $this->hostEntityId = $data ? end($data_array_keys) : FALSE;
-            $this->hostEntityRevisionId = FALSE;
-          }
-          // If we are querying for revisions, we get the revision ID.
-          else {
-            $data_array_keys = array_keys($data);
-            $this->hostEntityId = FALSE;
-            $this->hostEntityRevisionId = $data ? end($data_array_keys) : FALSE;
-          }
+        if ($this->isInUse()) {
+          $this->hostEntityId = $data ? key($data) : FALSE;
+          $this->hostEntityRevisionId = FALSE;
         }
+        // If we are querying for revisions, we get the revision ID.
         else {
-          // No host entity available yet.
           $this->hostEntityId = FALSE;
+          $this->hostEntityRevisionId = $data ? key($data) : FALSE;
         }
       }
       else {
@@ -475,11 +465,9 @@ class FieldCollectionItemEntity extends Entity {
   /**
    * Deletes the field collection item and the reference in the host entity.
    */
-  public function delete($skip_host_save = FALSE) {
+  public function delete() {
     parent::delete();
-    if (!$skip_host_save) {
-      $this->deleteHostEntityReference();
-    }
+    $this->deleteHostEntityReference();
   }
 
   /**
@@ -582,7 +570,7 @@ class FieldCollectionItemEntity extends Entity {
       }
       if (!$row && !isset($this->hostEntity()->{$this->field_name}[$this->langcode()][$this->delta()])) {
         // Delete if there is no existing revision or translation to be saved.
-        $this->delete($skip_host_update);
+        $this->delete();
       }
     }
   }

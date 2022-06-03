@@ -241,6 +241,7 @@ function autoassignrole_form_user_register_form_alter(&$form, &$form_state) {
         '#title' => filter_xss(variable_get('autoassignrole_user_fieldset_title', t('User Roles'))),
         '#collapsible' => FALSE,
         '#collapsed' => FALSE,
+        '#weight' => variable_get('autoassignrole_user_fieldset_weight', 0),
       );
 
       // Sort the roles.
@@ -267,17 +268,27 @@ function autoassignrole_form_user_register_form_alter(&$form, &$form_state) {
         $roles = array(0 => t('None')) + $roles;
       }
 
+      // Set the user description filter format.
+      $autoassignrole_user_description = _autoassignrole_get_user_description();
+
       // Add in the element.
       $form['autoassignrole_user']['user_roles'] = array(
         '#type' => $type,
         '#title' => filter_xss(variable_get('autoassignrole_user_title', t('Role'))),
         '#options' => $roles,
-        '#description' => filter_xss(variable_get('autoassignrole_user_description', t('Select a role'))),
+        '#description' => filter_xss_admin($autoassignrole_user_description['value']),
         '#required' => variable_get('autoassignrole_user_required', 0),
         '#multiple' => $multiple,
       );
     }
   }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function autoassignrole_form_autoassignrole_user_settings_alter(&$form, &$form_state, $form_id) {
+  $form['#attached']['js'][] = drupal_get_path('module', 'autoassignrole') . '/autoassignrole.js';
 }
 
 /**
@@ -321,4 +332,48 @@ function _autoasignrole_get_page_query() {
       'menu',
       'display',
     ));
+}
+
+/**
+ * Get the user description filter field data.
+ *
+ * @return array
+ *   The user description filter value.
+ */
+function _autoassignrole_get_user_description() {
+  $defaults = array(
+    'value' => t('Select a role'),
+    'format' => filter_default_format(),
+  );
+
+  return variable_get('autoassignrole_user_description', $defaults);
+}
+
+/**
+ * Sets the list of user-selectable roles.
+ *
+ * This function is useful in case you are deploying functionality from
+ * one site to another, or for any other reason you want to use an API
+ * instead of the form at admin/config/people/autoassignrole/user.
+ *
+ * Using this function will replace all previously-selected roles as they
+ * appear on admin/config/people/autoassignrole/user with the list provided.
+ *
+ * @param array $role_names
+ *   An array of role human names (for example array('administrator',
+ *   'myrole')).
+ *
+ * @throws
+ *   Exception.
+ */
+function autoassignrole_set_user_selectable_roles($role_names) {
+  $rids = array();
+  foreach ($role_names as $role_name) {
+    $role = user_role_load_by_name($role_name);
+    if (!$role) {
+      throw new Exception(format_string('The role @role_name is not defined in the system (its ID cannot be retrieved using user_role_load_by_name()) and cannot be added as a user selectable role', array('@role_name' => $role_name)));
+    }
+    $rids[$role->rid] = $role->rid;
+  }
+  variable_set('autoassignrole_user_roles', $rids);
 }

@@ -362,6 +362,7 @@ background-color: red; font-weight: bold; padding: 4px 0; margin-top: 12px; colo
 .noResults, .editPrevious { text-align: center; font-size: 120%; margin-top: 20px;}
 input#edit-field-save-and-return-und {transform:scale(1.4, 1.4); outline: 1px solid #A9A9A9; padding-right: 10px;}
 #edit-field-save-and-return ol {margin-top: 14px;}
+.node-type-idd-survey .main-container div.form-item-title {display: none;}
 .page-state-comparison-select .view-state-comparison .view-content .item-list {display: none;}
 .page-state-comparison-select .feed-icon {margin: 8px; }
 #field-specify-reporting-dates-add-more-wrapper .help-block { margin: 0; }
@@ -370,5 +371,4 @@ fieldset.date-combo .container-inline-date #edit-field-specify-reporting-dates-u
 #edit-field-specify-reporting-dates fieldset .panel-body { padding: 3px;}
 h3.specifyRep {margin: 0 10px;margin-bottom: 18px; color: #94132F;}
 #field-specify-reporting-dates-add-more-wrapper fieldset {margin-bottom: 2px;}
-
 label[for="edit-field-specify-reporting-dates-und-0-value2"] {display: block; float: none;}
