@@ -37,7 +37,7 @@
       });
       $('.currentYear').each(function(i, elem) {
         curyearText = $('#currentYear').text();
-        if($('#currentYear').text().length > 0) {$(elem).text(curyearText); } else { $(elem).text(''); } 
+        if($('#currentYear').text().length > 0) {$(elem).text(curyearText); } else { $(elem).text(''); }
         });
       $('h1.page-header em').hide();
 
@@ -79,24 +79,24 @@
     attach: function (context, settings) {
       var x=0;
       $(":input#edit-field-save-and-return-und").change(function(){
-        
-        if( $(this).is(':checked') ) { 
+
+        if( $(this).is(':checked') ) {
           x = x + 1; console.log("It's checked ");
          if($('.saveLeave.form-submit').hasClass('btn-success')) $('.saveLeave.form-submit').removeClass('btn-success').addClass('btn-danger');
          if($('#edit-submit').hasClass('btn-success')) $('#edit-submit').removeClass('btn-success').addClass('btn-danger');
-         $('.saveLeave.form-submit').html('<span class="icon glyphicon glyphicon-ok" aria-hidden="true"></span> FINAL SUBMIT'); 
+         $('.saveLeave.form-submit').html('<span class="icon glyphicon glyphicon-ok" aria-hidden="true"></span> FINAL SUBMIT');
          $('#edit-submit').html('<span class="icon glyphicon glyphicon-ok" aria-hidden="true"></span> FINAL SUBMIT');
-        
-        } else 
+
+        } else
         {   if($('.saveLeave.form-submit').hasClass('btn-danger')) $('.saveLeave.form-submit').removeClass      ('btn-danger').addClass('btn-success');
          if($('#edit-submit').hasClass('btn-danger')) $('#edit-submit').removeClass('btn-danger').addClass('btn-success');
-          $('.saveLeave.form-submit').html('<span class="icon glyphicon glyphicon-ok" aria-hidden="true"></span> SAVE'); 
+          $('.saveLeave.form-submit').html('<span class="icon glyphicon glyphicon-ok" aria-hidden="true"></span> SAVE');
           $('#edit-submit').html('<span class="icon glyphicon glyphicon-ok" aria-hidden="true"></span> SAVE');
          }
-       
+
       });
-      
-      
+
+
     }
   }
 
@@ -295,10 +295,10 @@ function checkEmailValidation() {
   var email = $('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').val();
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if  (!regex.test(email)) {
- 
+
   $('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').before('<p class="reqNumwarn"><strong>That is not a valid email address.</strong></p>');
   $('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').val("not.valid@please.change"); }
-  else { 
+  else {
   if ($('#edit-field-surv-coord-contact-und-0-field-surv-co-email input').val() != "not.valid@please.change") {
     $('#edit-field-surv-coord-contact-und-0-field-surv-co-email p.reqNumwarn').remove();}
    }
@@ -519,7 +519,7 @@ secVnumServed = secVnumServed ? secVnumServed : 0;
 secVInumServed = secVInumServed ? secVInumServed : 0;
 autoTtlIndvs = secIInumServed + secIIInumServed + secIVnumServed + secVnumServed + secVInumServed;
 
-  if( autoTtlIndvs && autoTtlIndvs != secInumServed)  { $('#edit-field-save-and-return #indivTotals .whiteBlock .calcWarn').remove(); $('#indivTotals .whiteBlock').append('<span class="calcWarn">The total of individuals served in Section I <u>' + commifyNum(secInumServed) + '</u>  does not match the total of individuals served in the subsections enumerated above: <u><strong>' + commifyNum(autoTtlIndvs) +'</strong></u>.  Please check your figures to be sure they are accurate.</span>'); } else { if ($('#edit-field-save-and-return #indivTotals .calcWarn')) $('#edit-field-save-and-return #indivTotals .calcWarn').remove(); }
+  if( autoTtlIndvs && autoTtlIndvs != secInumServed)  { $('#edit-field-save-and-return #indivTotals .whiteBlock .calcWarn').remove(); $('#indivTotals .whiteBlock').append('<span class="calcWarn">The total of individuals served in Section I <u>' + commifyNum(secInumServed) + '</u>  does not match the total of individuals served in the subsections enumerated above: <u><strong>' + commifyNum(autoTtlIndvs) +'</strong></u>.  This is expected when  individuals engage in more than one setting, but we encourage you to make sure the relationship between the two numbers accurately reflects your state’s experience. </span>'); } else { if ($('#edit-field-save-and-return #indivTotals .calcWarn')) $('#edit-field-save-and-return #indivTotals .calcWarn').remove(); }
 
 }
 
