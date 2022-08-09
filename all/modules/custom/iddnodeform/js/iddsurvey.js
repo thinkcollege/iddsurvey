@@ -519,7 +519,7 @@ secVnumServed = secVnumServed ? secVnumServed : 0;
 secVInumServed = secVInumServed ? secVInumServed : 0;
 autoTtlIndvs = secIInumServed + secIIInumServed + secIVnumServed + secVnumServed + secVInumServed;
 
-  if( autoTtlIndvs && autoTtlIndvs != secInumServed)  { $('#edit-field-save-and-return #indivTotals .whiteBlock .calcWarn').remove(); $('#indivTotals .whiteBlock').append('<span class="calcWarn">The total of individuals served in Section I <u>' + commifyNum(secInumServed) + '</u>  does not match the total of individuals served in the subsections enumerated above: <u><strong>' + commifyNum(autoTtlIndvs) +'</strong></u>.  This is expected when  individuals engage in more than one setting, but we encourage you to make sure the relationship between the two numbers accurately reflects your state’s experience. </span>'); } else { if ($('#edit-field-save-and-return #indivTotals .calcWarn')) $('#edit-field-save-and-return #indivTotals .calcWarn').remove(); }
+  if( autoTtlIndvs && autoTtlIndvs != secInumServed)  { $('#edit-field-save-and-return #indivTotals .whiteBlock .calcWarn').remove(); $('#indivTotals .whiteBlock').append('<span class="calcWarn">The total of individuals served in Section I <u>' + commifyNum(secInumServed) + '</u>  does not match the total of individuals served in the subsections enumerated above: <u><strong>' + commifyNum(autoTtlIndvs) +'</strong></u>.  This is expected when  individuals engage in more than one setting, but we encourage you to make sure the relationship between the two numbers accurately reflects your state\'s experience. </span>'); } else { if ($('#edit-field-save-and-return #indivTotals .calcWarn')) $('#edit-field-save-and-return #indivTotals .calcWarn').remove(); }
 
 }
 
