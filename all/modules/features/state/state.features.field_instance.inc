@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * state.features.field_instance.inc
@@ -10,6 +11,45 @@
 function state_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-reporting_period-field_previous_period'.
+  $field_instances['node-reporting_period-field_previous_period'] = array(
+    'bundle' => 'reporting_period',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => FALSE,
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_previous_period',
+    'label' => 'Previous period',
+    'required' => FALSE,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-reporting_period-field_rp_date_range'.
   $field_instances['node-reporting_period-field_rp_date_range'] = array(
     'bundle' => 'reporting_period',
@@ -20,6 +60,7 @@ function state_field_default_field_instances() {
         'label' => 'above',
         'module' => 'date',
         'settings' => array(
+          'custom_date_format' => '',
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -58,7 +99,7 @@ function state_field_default_field_instances() {
         'label_position' => 'above',
         'no_fieldset' => 0,
         'text_parts' => array(),
-        'year_range' => '-1:+3',
+        'year_range' => '-4:+3',
       ),
       'type' => 'date_popup',
       'weight' => 1,
@@ -75,6 +116,7 @@ function state_field_default_field_instances() {
         'label' => 'above',
         'module' => 'date',
         'settings' => array(
+          'custom_date_format' => '',
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -195,6 +237,7 @@ function state_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -376,6 +419,7 @@ function state_field_default_field_instances() {
   t('Group');
   t('Individual data type');
   t('Notification emails');
+  t('Previous period');
   t('Select the current reporting period for this state.');
   t('Select the state this reporting period is valid for.');
   t('State');

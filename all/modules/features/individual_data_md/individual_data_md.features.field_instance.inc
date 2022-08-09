@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * individual_data_md.features.field_instance.inc
@@ -444,6 +445,7 @@ function individual_data_md_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -969,6 +971,7 @@ function individual_data_md_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',

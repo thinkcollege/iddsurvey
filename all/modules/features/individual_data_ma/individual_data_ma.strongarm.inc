@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * individual_data_ma.strongarm.inc

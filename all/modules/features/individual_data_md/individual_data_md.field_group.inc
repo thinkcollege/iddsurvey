@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * individual_data_md.field_group.inc
@@ -37,7 +38,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_com_non_work|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -65,7 +66,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_fac_non_work|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -96,7 +97,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_grp_integ|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -128,7 +129,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_individual_data_categories|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -158,7 +159,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_indv_comp|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -189,7 +190,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_indv_cont|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -219,7 +220,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_self_emp|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -250,7 +251,7 @@ function individual_data_md_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_shl|node|individual_data|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.

@@ -15,6 +15,7 @@ dependencies[] = og_ui
 dependencies[] = options
 dependencies[] = shared
 dependencies[] = strongarm
+dependencies[] = text
 features[conditional_fields][] = node:individual_data
 features[ctools][] = field_group:field_group:1
 features[ctools][] = strongarm:strongarm:1

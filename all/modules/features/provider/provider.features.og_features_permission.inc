@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * provider.features.og_features_permission.inc

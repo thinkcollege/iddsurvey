@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * state.strongarm.inc
@@ -20,6 +21,9 @@ function state_strongarm() {
       'form' => array(
         'title' => array(
           'weight' => '0',
+        ),
+        'metatags' => array(
+          'weight' => '40',
         ),
       ),
       'display' => array(),
