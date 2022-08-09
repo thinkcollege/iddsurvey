@@ -10,7 +10,8 @@ div.form-item-field-surv-coord-contact-und-0-field-contact-survey-coordinator-un
 #addressfield-wrapper .form-type-textfield input { max-width: 100%; }
 .nav.vertical-tabs-list > li > a {font-weight: bold;}
 .nav.vertical-tabs-list > li > a.tabFilled { color: green; background-image: url('../img/green_check.png');  background-position: right 4px center; background-repeat: no-repeat; padding: 10px 22px 10px 10px;}
-.field-group-div h3 {font-size: 1em; font-weight: bold;}
+.field-group-div h3 {font-size: 1.5em; font-weight: bold;}
+div.collapsible > div.field-group-format-wrapper div.collapsible.h3Smaller h3 {font-size: 1.1em;}
 .group-emp-day-svc-amount .form-type-checkboxes > label, .group-integ-fund-amt .form-type-checkboxes > label, .group-integ-other-agc-subgroup .form-type-checkboxes > label,.group-fac-amt .form-type-checkboxes > label, .group_fac_non_w_fund_amt .form-type-checkboxes > label,.group-oth-emp-day-fund-amt .form-type-checkboxes > label,.group-comm-fund-amt .form-type-checkboxes > label, .group-fac-other-entities .form-type-checkboxes > label { display: none; }
 .group-emp-day-svc-amount .form-type-checkboxes .form-type-checkbox label, .group-integ-fund-amt .form-type-checkboxes .form-type-checkbox label, .group-integ-other-agc-subgroup .form-type-checkboxes .form-type-checkbox label,.group-fac-amt .form-type-checkboxes .form-type-checkbox label,.group_fac_non_w_fund_amt .form-type-checkboxes .form-type-checkbox label,.group-oth-emp-day-fund-amt .form-type-checkboxes .form-type-checkbox label,.group-comm-fund-amt .form-type-checkboxes .form-type-checkbox label, .group-fac-other-entities .form-type-checkboxes .form-type-checkbox label   { font-weight: bold; }
 .checkbox input[type="checkbox"]{position:absolute;margin-left:-20px;margin-top:0;}

@@ -16,7 +16,7 @@ function iddnodeform_permission() {
     'access arguments' => array('administer modules'),
   );
   return $items;
-} 
+}
 function iddnodeform_query_alter($query) {
   if ($query->hasTag('efq_debug') && module_exists('devel')) {
     dpm((string) $query);
@@ -48,7 +48,7 @@ function iddnodeform_query_alter($query) {
     'error_message' => t('There has been an error.')
   );
    // get all the previous year nodes
-   
+
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'idd_survey')
@@ -56,9 +56,9 @@ function iddnodeform_query_alter($query) {
     ->fieldCondition('field_idd_reporting_period', 'target_id', $prev_year_rep_period_id,'=');
   $result = $query->execute();
   $newidd_nodes = array();
-  if (isset($result['node'])) { 
+  if (isset($result['node'])) {
     foreach($result['node'] as $statereportid) {
-     
+
       $statereport_node = node_load($statereportid->nid);
       // Make sure last year's records are published
      // set status property to 1
@@ -76,19 +76,19 @@ function iddnodeform_query_alter($query) {
      $batch['operations'][] = array('_iddnodeform_batch_create_new_state_reporting_node_process', array($state_individual_data_content_type,$state_node->nid,$reporting_period_node->nid,$statereport_node->field_idd_state_name[LANGUAGE_NONE][0]['tid'],$newtitle,$statereport_node->uid));
      //$createnode = _iddnodeform_create_new_state_reporting_node($state_individual_data_content_type,$state_node->nid,$reporting_period_node->nid,$statereport_node->field_idd_state_name[LANGUAGE_NONE][0]['tid'],$newtitle,$statereport_node->uid);
      // $newidd_nodes[] = $eachnode;
-      
+
     }
     batch_set($batch);
     batch_process('admin/states'); // The path to redirect to when done.
-    
+
   }
 
-  
- 
-    
 
-  
-  
+
+
+
+
+
 }
 
 function _iddnodeform_batch_create_new_state_reporting_node_process($individual_data_content_type,$statenid,$reportingperiodid,$state_term_id,$newtitle,$user_id, &$context) {
@@ -114,9 +114,9 @@ function _iddnodeform_batch_create_new_state_reporting_node_finished($success, $
 }
 
 function _iddnodeform_create_new_state_reporting_node($individual_data_content_type,$statenid,$reportingperiodid,$state_term_id,$newtitle,$user_id) {
-  
 
-  
+
+
   // Check to see if an individual data node already exists for this
   // individual/provider/reporting-period combination. If so, don't create another.
   $query = new EntityFieldQuery();
@@ -219,12 +219,12 @@ function iddnodeformPrevYear ($user,$prevyearid) {
   return;
 }
 function iddnodeform_preprocess_node(&$vars){
-  
+
   if($vars['type'] == 'idd_survey'){
-    
+
     $nid = $vars['node']->nid;
-    
-    
+
+
     $getyear = iddnodeform_get_years($nid);
     $currnid = $getyear[0] ? $getyear[0] : '';
     $curreptid = $getyear[1] ? $getyear[1] : '';
@@ -234,8 +234,8 @@ function iddnodeform_preprocess_node(&$vars){
     $nodeuser = $getyear[5] ? $getyear[5] : '';
     drupal_add_css(drupal_get_path('module', 'iddnodeform') . '/css/iddsurvey.css');
     drupal_add_js(drupal_get_path('module', 'iddnodeform') . '/js/iddsurvey.js');
-  
-  
+
+
     $vars['content']['field_total_served']['#title'] = "1. Total unduplicated number of individuals served in employment and day services in your state in " . $curryearname;
     $vars['content']['field_of_the_total_number_of_ind']['#title'] = t('2a. Of the total number of individuals served in employment and day services (' . $vars['field_total_served'][0]['value'] . ') what is the total number who are working in a paid integrated job in the community? ');
     $vars['content']['field_total_integ_y_n']['#title'] = t('2. Of the total number of individuals served in employment and day services (' . $vars['field_total_served'][0]['value'] . ') is your state able to determine the number of individuals who are working in a paid integrated job in the community?');
@@ -245,7 +245,7 @@ function iddnodeform_preprocess_node(&$vars){
       $vars['content']['field_integ_em_sv_indv_y_n']['#title'] = "1b. Of the total number of individuals in " . $curryearname . " who received integrated employment services (" .  $vars['field_integ_emp_svc_num_ind'][0]['value'] . "), can you provide the number of individuals receiving individual integrated employment services?";
       $vars['content']['field_integ_em_individ_em_num']['#title'] = t('1c. The total number of individuals receiving individual integrated employment services is');
         $vars['content']['field_integ_emp_svc_num_ind']['#title'] = "1a. Total number of individuals receiving integrated employment services in $curryearname";
-      $vars['content']['field__integ_em_sv_grp_y_n']['#title'] = "1c. Of the total number of individuals in " . $curryearname . " who received integrated employment services (" .  $vars['field_integ_emp_svc_num_ind'][0]['value'] . "), can you provide the number of individuals receiving group employment services?";
+      $vars['content']['field__integ_em_sv_grp_y_n']['#title'] = "1d. Of the total number of individuals in " . $curryearname . " who received integrated employment services (" .  $vars['field_integ_emp_svc_num_ind'][0]['value'] . "), can you provide the number of individuals receiving group employment services?";
         $vars['content']['field__integ_em_grp_em_num']['#title'] = t('1e. The total number of individuals receiving group supported employment services is');
       $vars['content']['field_integ_short_term_emp_svc']['#title'] = t('1f. Does your state have a short term employment services (i.e. job development, and discovery and career planning as part of a job development process) that is intended to result in an integrated employment outcome?');
       $vars['content']['field__integ_working_paid_commun']['#title'] = t('2. Is your state able to determine the total number of individuals served in integrated employment services (' .  $vars['field_integ_emp_svc_num_ind'][0]['value'] . ') who are working in a paid integrated job in thed community?');
@@ -253,7 +253,7 @@ function iddnodeform_preprocess_node(&$vars){
         $vars['content']['field_integ_working_ind_y_n']['#title'] = t('2b. Of the total number of individuals in ' . $curryearname . ' working in paid integrated jobs in the community (' .  $vars['field_integ_paid_commun_num'][0]['value'] . ') can you provide the number of individuals were working in individual integrated jobs? ');
         $vars['content']['field_integ_working_ind_num']['#title'] = t('2c. Total number of individuals working in paid integrated jobs in the community working in individual integrated jobs');
         $vars['content']['field_integ_working_grp_y_n']['#title'] = t('2d. Of the total number of individuals in ' . $curryearname . ' working in paid integrated jobs in the community (' .  $vars['field_integ_paid_commun_num'][0]['value'] . ') can you provide the number of individuals who were in group supported jobs? ');
-          $vars['content']['field_integ_working_grp_num']['#title'] = t('2c. Total number of individuals working in paid integrated jobs in the community working in group supported jobs');
+          $vars['content']['field_integ_working_grp_num']['#title'] = t('2f. Total number of individuals working in paid integrated jobs in the community working in group supported jobs');
 
           $vars['content']['field_integ_working_self_y_n']['#title'] = t('2f. Of the total number of individuals in ' . $curryearname . ' working in paid integrated jobs in the community (' .  $vars['field_integ_paid_commun_num'][0]['value'] . ') can you provide the number of individuals who were self employed? ');
             $vars['content']['field_integ_working_self_num']['#title'] = t('2g. Total number of individuals working in paid integrated jobs in the community who were self employed');
@@ -328,7 +328,7 @@ function iddnodeform_form_alter(&$form, &$form_state, $form_id) {
     $nodestatus = $nodest->status;
     //if (in_array('IDD states', $user->roles) && !in_array('administrator', $user->roles) && !in_array('IDD Survey administrator', $user->roles) && $nodestatus == 1) {echo "<h1>HUH</h1>"; print_r($user->roles); }
     //if (in_array('IDD states', $user->roles) && !in_array('administrator', $user->roles) && !in_array('IDD Survey administrator', $user->roles) && $nodestatus != 1) {  drupal_goto('<front>');}
-      
+
     $getyear = iddnodeform_get_years($nid);
     $currnid = $getyear[0] ? $getyear[0] : '';
     $curreptid = $getyear[1] ? $getyear[1] : '';
@@ -348,7 +348,7 @@ function iddnodeform_form_alter(&$form, &$form_state, $form_id) {
               );
     $backlinkid = $iscurrent != 'Yes' ?  iddnodeGetCurrYear($nodeuser)[0] : '';
 
-    if($prevnode) { 
+    if($prevnode) {
       $fieldnamearray = array('field_total_served','field_of_the_total_number_of_ind','field_please_enter_the_total_num','field_title_xix_mdc_waiv_amt','field_state_county_or_loc_amt','field_other_self_pay_amt','field_waitlist_num','field_integ_emp_svc_num_ind','field_integ_em_individ_em_num','field__integ_em_grp_em_num','field_integ_paid_commun_num','field_integ_working_ind_num','field_integ_working_grp_num','field_integ_working_self_num','field_integ_oth_vo_re_num','field_integ_oth_ed_num','field_fac_oth_dep_mh_num','field_integ_oth_oth_name','field_integ_oth_oth_num','field_integ_total_expenditure','field_integ_xix_waiv_amt','field_integ_st_cty_idd_amt','field_integ_oth_slf_pay_amt','field_fac_total_num_of_ind','field_fac_total_expendit','field_fac_titl_xix_waiv_amt','field_fac_state_cty_amt','field_fac_other_amt','field_fac_oth_voc_reh_num','field_fac_oth_ed_num','field_fac_dep_mh_num','field_fac_oth_oth_name','field_fac_oth_oth_num','field_comm_total_num_indiv','field_comm_ind_based_svcs_num','field_comm_group_based_svc_num','field_comm_total_expenditure','field_comm_xix_medicaid_amount','field_comm_state_local_amount','field_comm_other_amount','field_fac_bas_num_indvs','field_fac_non_wk_tot_expend','field_fac_non_w_titl_xix_amt','field_fac_non_w_stat_local_amt','field_fac_non_w_other_amt','field_oth_emp_day_num_indv','field_oth_emp_day_providers','field_oth_emp_day_total_funds','field_oth_emp_day_xix_amt','field_oth_emp_day_stat_cty_amt','field_oth_emp_day_oth_amt','field_if_a_specific_point_in_tim');
               foreach ($fieldnamearray as $key => $fieldname) {
       $value = in_array('field-widget-text-textarea',$form["$fieldname"]['#attributes']) ? 'safe_value' : 'value';
@@ -364,8 +364,8 @@ function iddnodeform_form_alter(&$form, &$form_state, $form_id) {
 
     $form['#prefix']= $iscurrent == 'Yes' ? ($getprev[0] && $getprev[0] != '' ? "<p class=\"warnTop\">You are editing <strong>$curryearname</strong> values.  <a href= \"/node/" . $getprev[0] . "/edit\">Follow this link to edit $lastyname values.</a> <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p>" : "<p class=\"warnTop\">You are editing <strong>$curryearname</strong> values. You have already edited and submitted last year's ($lastyname) data.  Contact <a href=\"mailto:agnes.zalewska@umb.edu\">agnes.zalewska@umb.edu</a> if you need to make any corrections.</p>") : ($backlinkid && $backlinkid != '' ? "<p class=\"carefulWarn warnTop\">You are editing last year's <strong>($curryearname)</strong> values. <a href= \"/node/$backlinkid/edit\">Follow this link to edit the most recent reporting year values</a>.  <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p></p>" : "<p class=\"carefulWarn warnTop\">You are editing last year's <strong>($curryearname)</strong> values. You have already edited and submitted the current year's data.  Contact <a href=\"mailto:agnes.zalewska@umb.edu\">agnes.zalewska@umb.edu</a> if you need to make any corrections.</p>");
     $form['#suffix']= $iscurrent == 'Yes' ? ($getprev[0] && $getprev[0] != '' ? "<p class=\"warnBottom\">You are editing <strong>$curryearname</strong> values.  <a href= \"/node/" . $getprev[0] . "/edit\">Follow this link to edit $lastyname values.</a> <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p>" : "<p class=\"warnBottom\">You are editing <strong>$curryearname</strong> values. You have already edited and submitted last year's ($lastyname) data.  Contact <a href=\"mailto:agnes.zalewska@umb.edu\">agnes.zalewska@umb.edu</a> if you need to make any corrections.</p>") : ($backlinkid && $backlinkid != '' ? "<p class=\"carefulWarn warnBottom\">You are editing last year's <strong>($curryearname)</strong> values. <a href= \"/node/$backlinkid/edit\">Follow this link to edit the most recent reporting year values</a>.  <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p></p>" : "<p class=\"carefulWarn warnBottom\">You are editing last year's <strong>($curryearname)</strong> values. You have already edited and submitted the current year's data.  Contact <a href=\"mailto:agnes.zalewska@umb.edu\">agnes.zalewska@umb.edu</a> if you need to make any corrections.</p>");
-    //$form['#suffix']= $iscurrent == 'Yes' ? "<p class=\"warnBottom\">You are editing $curryearname values.  <a href= \"/node/" . $getprev[0] . "/edit\">Follow this link to edit $lastyname values.</a> <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p>" : "<p class=\"carefulWarn warnBottom\">You are editing last year's ($curryearname) values. <a href= \"/node/$backlinkid/edit\">Follow this link to edit the most recent reporting year values</a>.  <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p></p>"; 
-    
+    //$form['#suffix']= $iscurrent == 'Yes' ? "<p class=\"warnBottom\">You are editing $curryearname values.  <a href= \"/node/" . $getprev[0] . "/edit\">Follow this link to edit $lastyname values.</a> <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p>" : "<p class=\"carefulWarn warnBottom\">You are editing last year's ($curryearname) values. <a href= \"/node/$backlinkid/edit\">Follow this link to edit the most recent reporting year values</a>.  <strong>Be sure to <a href=\"#\" class=\"saveLeave btn btn-success form-submit\"><span class=\"icon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> SAVE</a> this form before changing years!</strong></p></p>";
+
     $form['field_specify_reporting_dates']['und']['#suffix'] = t('<h3 class="specifyRep">This survey is collecting data for your state fiscal year ' . $curryearname . '.  If the dates above are not for ' .  $curryearname . ', you are using the wrong form.</h3>');
     $form['field_total_served']['und'][0]['value']['#title'] = t('1. Total unduplicated number of individuals served in employment and day services in your state in ' . $curryearname);
     $form['field_of_the_total_number_of_ind']['und'][0]['value']['#title'] = t('2a. Of the total number of individuals served in employment and day services (' . $vars['field_total_served'][0]['value'] . ') what is the total number who are <u>working in a paid integrated job in the community</u>? ');

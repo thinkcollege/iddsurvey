@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Code for the IDD Survey Layout feature.
+ */
+
+include_once 'idd_survey_layout.features.inc';
