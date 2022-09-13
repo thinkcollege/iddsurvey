@@ -364,7 +364,7 @@ background-color: red; font-weight: bold; padding: 4px 0; margin-top: 12px; colo
 input#edit-field-save-and-return-und {transform:scale(1.4, 1.4); outline: 1px solid #A9A9A9; padding-right: 10px;}
 #edit-field-save-and-return ol {margin-top: 14px;}
 .node-type-idd-survey .main-container div.form-item-title {display: none;}
-.page-state-comparison-select .view-state-comparison .view-content .item-list {display: none;}
+.page-state-comparison-select .view-state-comparison .view-content .item-list, .page-state-comparison-select-clone .view-clone-of-state-comparison  .view-content .item-list {display: none;}
 .page-state-comparison-select .feed-icon {margin: 8px; }
 #field-specify-reporting-dates-add-more-wrapper .help-block { margin: 0; }
 #field-specify-reporting-dates-add-more-wrapper {margin-top: 12px;}
