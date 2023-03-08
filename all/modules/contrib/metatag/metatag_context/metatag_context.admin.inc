@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Admin settings page for Metatag Context.
@@ -9,10 +10,11 @@
  */
 function metatag_context_context_overview() {
   $contexts = context_enabled_contexts(TRUE);
-  $header = array(t('Name'), t('Paths'), t('Operations'));
+
+  $header = array(t('Name'), t('Paths'), t('Weight'), t('Operations'));
   $rows = array();
 
-  $caption = t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a> and will override any other meta tags assigned elsewhere.', array('@url' => url('admin/config/search/metatags/config/global')));
+  $caption = t('Values assigned here inherit from the <a href="@url" aria-label="Edit the global default meta tags.">global defaults</a>. Use the weight to specify the order the context meta tags run.', array('@url' => url('admin/config/search/metatags/config/global')));
 
   foreach ($contexts as $name => $context) {
     // Only show context items that are specifically selected to be "Shown on
@@ -23,13 +25,20 @@ function metatag_context_context_overview() {
         l(t('Delete'), 'admin/config/search/metatags/context/' . $context->name . '/delete', array('query' => array('destination' => 'admin/config/search/metatags/context'))),
       );
       $rows[] = array(
-        $context->name,
-        isset($context->conditions['path']) ? htmlspecialchars(implode(', ', $context->conditions['path']['values'])) : t('No path condition.'),
-        implode(' | ', $ops),
+        'name' => $context->name,
+        'path' => isset($context->conditions['path']) ? htmlspecialchars(implode(', ', $context->conditions['path']['values'])) : t('No path condition.'),
+        'weight' => isset($context->reactions['metatag_context_reaction']['weight']) ? $context->reactions['metatag_context_reaction']['weight'] : 0,
+        'ops' => implode(' | ', $ops),
       );
     }
   }
-  return theme('table', array('header' => $header, 'rows' => $rows, 'caption' => $caption));
+  uasort($rows, 'drupal_sort_weight');
+
+  return theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'caption' => $caption,
+  ));
 }
 
 /**
@@ -85,6 +94,12 @@ function metatag_context_config_add_form_submit($form, &$form_state) {
   $context = metatag_context_load_default_context();
   $context->name = $form_state['values']['name'];
   context_save($context);
+
+  // Update the i18n strings.
+  if (!empty($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE])) {
+    metatag_translations_update($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE], 'metatag_context:' . $context->name);
+  }
+
   $form_state['redirect'] = 'admin/config/search/metatags/context/' . $context->name;
 }
 
@@ -99,7 +114,9 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
   // Don't care about the instance name, the data is being managed by Context
   // and not Metatag.
   $instance = "";
-  $options = array();
+  $options = array(
+    'token types' => array('node', 'term', 'user'),
+  );
 
   $metatags = $context->reactions['metatag_context_reaction']['metatags'];
   if (!isset($metatags[LANGUAGE_NONE])) {
@@ -113,7 +130,7 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
 
   $form['paths'] = array(
     '#title' => 'Path',
-    '#description' => t('Set this metatag context when any of the paths above match the page path. Put each path on a separate line. You can use the <code>*</code> character (asterisk) as a wildcard and the <code>~</code> character (tilde) to exclude one or more paths. Use <code>&lt;front&gt;</code> for the site front page. Only local paths (e.g. "example/page") will work, do not use relative URLs ("/example/page") or absolute URLs ("http://example.com/example/page").'),
+    '#description' => t('Set this metatag context when any of the paths above match the page path. Put each path on a separate line. You can use the <code>*</code> character (asterisk) as a wildcard and the <code>~</code> character (tilde) to exclude one or more paths. Use <code>&lt;front&gt;</code> for the site front page. Only local paths (e.g. "example/page") will work, do not use relative URLs ("/example/page") or absolute URLs ("https://example.com/example/page").'),
     '#type' => 'textarea',
     '#default_value' => isset($context->conditions['path']['values']) ? html_entity_decode(implode('&#13;&#10;', $context->conditions['path']['values'])) : '',
     '#required' => 1,
@@ -138,13 +155,10 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
 
   $form['help'] = array(
     '#prefix' => '<hr /><p><em>',
-    '#markup' => t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a> and will override any other meta tags assigned elsewhere.', array('@url' => url('admin/config/search/metatags/config/global'))),
+    '#markup' => t('Values assigned here inherit from the <a href="@url" aria-label="Edit the global default meta tags.">global defaults</a>.', array('@url' => url('admin/config/search/metatags/config/global'))),
     '#suffix' => '</em></p>',
     '#weight' => -99,
   );
-
-  // Show all tokens.
-  $form['metatags']['tokens']['#token_types'] = 'all';
 
   $form['metatags']['#type'] = 'container';
   unset($form['metatags']['#collapsed']);
@@ -175,6 +189,12 @@ function metatag_context_config_edit_form_submit($form, &$form_state) {
   $paths = array_combine($paths, $paths);
   $context->conditions['path']['values'] = $paths;
   context_save($context);
+
+  // Update the i18n strings.
+  if (!empty($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE])) {
+    metatag_translations_update($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE], 'metatag_context:' . $context->name);
+  }
+
   $form_state['redirect'] = 'admin/config/search/metatags/context';
 }
 
@@ -185,7 +205,7 @@ function metatag_context_delete_form($form, &$form_state, $context) {
   $form_state['metatag_context']['context'] = $context;
 
   $form['delete'] = array(
-    '#value' => 'This action will permanently remove this item from your database.'
+    '#value' => 'This action will permanently remove this item from your database.',
   );
 
   $form['actions']['#type'] = 'actions';
@@ -227,8 +247,7 @@ function metatag_context_load_default_context() {
   $context->metatag = TRUE;
   $context->conditions = array(
     'path' => array(
-      'values' => array(
-      ),
+      'values' => array(),
     ),
   );
   $context->reactions = array(

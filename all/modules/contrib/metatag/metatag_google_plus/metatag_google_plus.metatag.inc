@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Metatag integration for the Metatag Google+ module.
@@ -87,7 +88,7 @@ function metatag_google_plus_metatag_info() {
 
   $info['tags']['itemtype'] = array(
     'label' => t('Page type'),
-    'description' => t('Schema type. <a href="!url">More schema info</a>. If your page type does not exist in options above, please install <a href="!url2">select_or_other</a> module to enter page type manually.', array('!url' => 'http://schema.org/docs/schemas.html', '!url2' => 'https://drupal.org/project/select_or_other')),
+    'description' => t('Schema type. <a href="!url">More schema info</a>. If your page type does not exist in options above, please install <a href="!url2">select_or_other</a> module to enter page type manually.', array('!url' => 'https://schema.org/docs/schemas.html', '!url2' => 'https://drupal.org/project/select_or_other')),
     'class' => 'DrupalSchemaMetaTag',
     'weight' => ++$weight,
     'select_or_other' => TRUE,
@@ -111,20 +112,33 @@ function metatag_google_plus_metatag_info() {
   $info['tags']['itemprop:name'] = array(
     'label' => t('Title'),
     'description' => t('A Google+ title for the page being shared. Keep keywords towards the front.'),
+    'maxlength' => 0,
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['itemprop:description'] = array(
     'label' => t('Description'),
     'description' => t('Longer form description, you’ve 200 words here that can specifically reference your presence on Google+'),
+    'maxlength' => 0,
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['itemprop:image'] = array(
     'label' => t('Image URL'),
-    'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. '),
+    'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages.'),
     'weight' => ++$weight,
     'image' => TRUE,
     'devel_generate' => array(
       'type' => 'image',
+    ),
+  ) + $defaults;
+
+  $info['tags']['publisher'] = array(
+    'label' => t('Publisher URL'),
+    'description' => t("Used by some search engines to confirm publication of the content on a page. Should be the full URL for the publication's Google+ profile page."),
+    'class' => 'DrupalLinkMetaTag',
+    'weight' => ++$weight,
+    'element' => array(),
+    'devel_generate' => array(
+      'type' => 'url',
     ),
   ) + $defaults;
 

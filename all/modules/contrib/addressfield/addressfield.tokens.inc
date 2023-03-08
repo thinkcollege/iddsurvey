@@ -89,11 +89,14 @@ function addressfield_token_info() {
  */
 function addressfield_token_info_alter(&$data) {
   // Loop over every address field on the site.
-  foreach (array_filter(field_info_field_map(), 'addressfield_field_map_filter') as $field_name => $field) {
-    foreach ($data['tokens'] as $group => $token){
-      if (isset($data['tokens'][$group][$field_name]) && is_array($data['tokens'][$group][$field_name])) {
+  foreach (addressfield_get_address_fields() as $field_name => $field) {
+    foreach ($data['tokens'] as $group => $token) {
+      foreach (array($field_name, strtr($field_name, '_', '-')) as $name) {
+        if (!isset($data['tokens'][$group][$name]) || !is_array($data['tokens'][$group][$name])) {
+          continue;
+        }
         // Set the token type for the field to use the addressfield child tokens.
-        $data['tokens'][$group][$field_name]['type'] = 'address-field';
+        $data['tokens'][$group][$name]['type'] = 'address-field';
       }
     }
   }
@@ -127,10 +130,12 @@ function addressfield_tokens($type, $tokens, array $data = array(), array $optio
           break;
 
         case 'country-code':
+        case 'country_code':
           $replacements[$original] = $sanitize ? check_plain($address['country']) : $address['country'];
           break;
 
         case 'administrative-area':
+        case 'administrative_area':
           // If we received format handlers in the data array, generate the form
           // for the address field to see if the administrative area should be
           // expanded from an abbreviation to a related name.
@@ -148,6 +153,7 @@ function addressfield_tokens($type, $tokens, array $data = array(), array $optio
           break;
 
         case 'administrative-area-raw':
+        case 'administrative_area_raw':
           $replacements[$original] = $sanitize ? check_plain($address['administrative_area']) : $address['administrative_area'];
           break;
 
@@ -156,6 +162,7 @@ function addressfield_tokens($type, $tokens, array $data = array(), array $optio
           break;
 
         case 'postal-code':
+        case 'postal_code':
           $replacements[$original] = $sanitize ? check_plain($address['postal_code']) : $address['postal_code'];
           break;
 
@@ -168,6 +175,7 @@ function addressfield_tokens($type, $tokens, array $data = array(), array $optio
           break;
 
         case 'sub_premise':
+        case 'sub-premise':
           $replacements[$original] = $sanitize ? check_plain($address['sub_premise']) : $address['sub_premise'];
           break;
 
@@ -176,19 +184,23 @@ function addressfield_tokens($type, $tokens, array $data = array(), array $optio
           break;
 
         case 'name-line':
+        case 'name_line':
           $replacements[$original] = $sanitize ? check_plain($address['name_line']) : $address['name_line'];
           break;
 
         case 'first-name':
+        case 'first_name':
           $replacements[$original] = $sanitize ? check_plain($address['first_name']) : $address['first_name'];
           break;
 
         case 'last-name':
+        case 'last_name':
           $replacements[$original] = $sanitize ? check_plain($address['last_name']) : $address['last_name'];
           break;
 
         // See: http://kb.mailchimp.com/article/how-do-i-format-my-list-fields-to-import-them
         case 'format-mailchimp':
+        case 'format_mailchimp':
           $components = array();
 
           foreach (array('thoroughfare', 'premise', 'locality', 'administrative_area', 'postal_code', 'country') as $component) {
@@ -211,25 +223,80 @@ function addressfield_tokens($type, $tokens, array $data = array(), array $optio
   // entities. This ensures our tokens aren't overwritten by the Token module
   // and helps us avoid having to do the entity detection ourselves.
   if ($type == 'entity') {
-    // Loop over the address fields defined on the site.
-    foreach (array_filter(field_info_field_map(), 'addressfield_field_map_filter') as $field_name => $field) {
-      // If there are any address field tokens in the token list...
-      if ($addressfield_tokens = token_find_with_prefix($tokens, $field_name)) {
-        // If the current field is on the matching entity type...
-        if (!empty($field['bundles'][$data['entity_type']])) {
-          // Extract the format handlers selected in a representative instance
-          // settings form for use in formatting tokens.
-          $instance = field_info_instance($data['entity_type'], $field_name, reset($field['bundles'][$data['entity_type']]));
-          $format_handlers = $instance['widget']['settings']['format_handlers'];
-        }
+    $entity_type = $data['entity_type'];
+    $entity = $data['entity'];
+  }
+  elseif (!module_exists('token')) {
+    $entity_type = addresssfield_get_token_entity_mapping('token', $type);
+    if (empty($entity_type)) {
+      return $replacements;
+    }
+    $entity = $data[$type];
+  }
 
-        if (property_exists($data['entity'], $field_name)) {
-          // Generate the necessary address field tokens for the entity.
-          $replacements += token_generate('address-field', $addressfield_tokens, array('address-field' => $data['entity']->$field_name, 'format_handlers' => $format_handlers), $options);
-        }
+  if (!isset($entity_type)) {
+    return $replacements;
+  }
+
+  // Loop over the address fields defined on the site.
+  foreach (addressfield_get_address_fields($entity_type) as $field_name => $field) {
+    // If the current field is on the matching entity type...
+    if (!empty($field['bundles'][$entity_type])) {
+      // Extract the format handlers selected in a representative instance
+      // settings form for use in formatting tokens.
+      $instance = field_info_instance($entity_type, $field_name, reset($field['bundles'][$entity_type]));
+      $format_handlers = $instance['widget']['settings']['format_handlers'];
+    }
+
+    foreach (array($field_name, strtr($field_name, '_', '-')) as $prefix) {
+      // If there are any address field tokens in the token list...
+      $addressfield_tokens = token_find_with_prefix($tokens, $prefix);
+
+      if (!$addressfield_tokens || !property_exists($entity, $field_name)) {
+        continue;
       }
+
+      // Generate the necessary address field tokens for the entity.
+      $replacements += token_generate('address-field', $addressfield_tokens, array('address-field' => $entity->$field_name, 'format_handlers' => $format_handlers), $options);
     }
   }
 
   return $replacements;
+}
+
+/**
+ * Return an array of entity type to token type mappings.
+ * (Stolen from the token module).
+ *
+ * Why do we need this? Because when the token API was moved to core we did not
+ * re-use the entity type as the base name for taxonomy terms and vocabulary
+ * tokens.
+ *
+ * @see token_entity_info_alter()
+ * @see http://drupal.org/node/737726
+ */
+function addresssfield_get_token_entity_mapping($value_type = 'token', $value = NULL, $fallback = FALSE) {
+  if (module_exists('token')) {
+    return token_get_entity_mapping($value_type, $value, $fallback);
+  }
+  $mapping = &drupal_static(__FUNCTION__, array());
+
+  if (empty($mapping)) {
+    foreach (entity_get_info() as $entity_type => $info) {
+      $mapping[$entity_type] = !empty($info['token type']) ? $info['token type'] : $entity_type;
+    }
+    // Allow modules to alter the mapping array.
+    drupal_alter('token_entity_mapping', $mapping);
+  }
+
+  if (!isset($value)) {
+    return $value_type == 'token' ? array_flip($mapping) : $mapping;
+  }
+  elseif ($value_type == 'token') {
+    $return = array_search($value, $mapping);
+    return $return !== FALSE ? $return : ($fallback ? $value : FALSE);
+  }
+  elseif ($value_type == 'entity') {
+    return isset($mapping[$value]) ? $mapping[$value] : ($fallback ? $value : FALSE);
+  }
 }

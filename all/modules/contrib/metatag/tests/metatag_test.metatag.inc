@@ -1,7 +1,16 @@
 <?php
 
 /**
+ * @file
+ * Metatag API implementations for the Metatag Test module.
+ */
+
+/**
  * Implements hook_metatag_config_default().
+ *
+ * @todo Expand to cover more meta tags.
+ *
+ * @see MetatagTestBase::getTestDefaults()
  */
 function metatag_test_metatag_config_default() {
   $configs = array();
@@ -20,9 +29,9 @@ function metatag_test_metatag_config_default() {
   $config->api_version = 1;
   $config->disabled = FALSE;
   $config->config = array(
-    'description' => array('value' => 'Test foo description'),
-    'abstract' => array('value' => 'Test foo abstract'),
     'title' => array('value' => 'Test title'),
+    'abstract' => array('value' => 'Test foo abstract'),
+    'description' => array('value' => 'Test foo description'),
     'test:foo' => array('value' => 'foobar'),
   );
   $configs[$config->instance] = $config;
@@ -50,11 +59,25 @@ function metatag_test_metatag_info() {
     ),
   );
 
-  $info['test:foo'] = array(
+  $info['tags']['test:foo'] = array(
     'label' => t('Foo meta tag'),
     'description' => t('Testing metatag.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'testing',
+  );
+
+  $info['tags']['test:multifoo'] = array(
+    'label' => t('Multi foo meta tag'),
+    'description' => t('Testing metatag.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'testing',
+    'multiple' => TRUE,
+  );
+
+  $info['tags']['test:nodesc'] = array(
+    'label' => t('Meta tag with no description attribute'),
+    'class' => 'DrupalTextMetaTag',
+    'multiple' => TRUE,
   );
 
   return $info;

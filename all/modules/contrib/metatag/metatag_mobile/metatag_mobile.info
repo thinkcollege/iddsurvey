@@ -2,11 +2,13 @@ name = "Metatag: Mobile & UI Adjustments"
 description = "Provides support for meta tags used to control the mobile browser experience."
 package = SEO
 core = 7.x
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
-; Information added by Drupal.org packaging script on 2015-07-24
-version = "7.x-1.7"
+; Tests.
+files[] = tests/MetatagMobileTagsTest.test
+
+; Information added by Drupal.org packaging script on 2023-02-28
+version = "7.x-1.30+13-dev"
 core = "7.x"
 project = "metatag"
-datestamp = "1437763741"
-
+datestamp = "1677622092"
