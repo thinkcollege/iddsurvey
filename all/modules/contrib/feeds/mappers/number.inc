@@ -13,7 +13,6 @@ function number_feeds_processor_targets($entity_type, $bundle_name) {
 
   $numeric_types = array(
     'number_integer',
-    'number_bigint',
     'number_decimal',
     'number_float',
   );

@@ -7,8 +7,9 @@ files[] = autoassignrole.module
 files[] = autoassignrole.admin.inc
 files[] = autoassignrole.test
 
-; Information added by Drupal.org packaging script on 2018-10-25
-version = "7.x-1.2"
+; Information added by Drupal.org packaging script on 2015-02-13
+version = "7.x-1.0-beta4"
 core = "7.x"
 project = "autoassignrole"
-datestamp = "1540454883"
+datestamp = "1423862422"
+

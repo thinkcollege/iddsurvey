@@ -83,11 +83,88 @@ function feeds_tests_node_load($nodes) {
  * Changes runtime limit for feeds_source_import queue.
  *
  * @see FeedsFileFetcherTestCase::testRemoveFileAfterImportInBackground()
+ * @see FeedsFileHTTPTestCase::testImportSourceWithMultipleCronRuns()
  */
 function feeds_tests_cron_queue_info_alter(&$queues) {
   $feeds_source_import_queue_time = variable_get('feeds_tests_feeds_source_import_queue_time', FALSE);
   if ($feeds_source_import_queue_time && isset($queues['feeds_source_import'])) {
     $queues['feeds_source_import']['time'] = $feeds_source_import_queue_time;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for form feedsimporter_feeds_form().
+ *
+ * Adds an extra checkbox setting.
+ *
+ * @see feeds_tests_config_defaults()
+ */
+function feeds_tests_form_feedsimporter_feeds_form_alter(&$form, &$form_state) {
+  if (variable_get('feeds_tests_hook_config_defaults', FALSE)) {
+    $config = $form['#configurable']->getConfig();
+
+    $form['feeds_tests_extra_setting'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Extra setting'),
+      '#default_value' => $config['feeds_tests_extra_setting'],
+    );
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for form feedshttpfetcher_feeds_form().
+ *
+ * Adds an extra checkbox setting.
+ *
+ * @see feeds_tests_fetcher_config_defaults()
+ */
+function feeds_tests_form_feedshttpfetcher_feeds_form_alter(&$form, &$form_state) {
+  if (variable_get('feeds_tests_hook_config_defaults', FALSE)) {
+    $config = $form['#configurable']->getConfig();
+
+    $form['feeds_tests_fetcher_extra_setting'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Extra setting'),
+      '#default_value' => $config['feeds_tests_fetcher_extra_setting'],
+    );
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for form feedscsvparser_feeds_form().
+ *
+ * Adds an extra checkbox setting.
+ *
+ * @see feeds_tests_parser_config_defaults()
+ */
+function feeds_tests_form_feedscsvparser_feeds_form_alter(&$form, &$form_state) {
+  if (variable_get('feeds_tests_hook_config_defaults', FALSE)) {
+    $config = $form['#configurable']->getConfig();
+
+    $form['feeds_tests_parser_extra_setting'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Extra setting'),
+      '#default_value' => $config['feeds_tests_parser_extra_setting'],
+    );
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for form feedsnodeprocessor_feeds_form().
+ *
+ * Adds an extra custom setting.
+ *
+ * @see feeds_tests_processor_config_defaults()
+ */
+function feeds_tests_form_feedsnodeprocessor_feeds_form_alter(&$form, &$form_state) {
+  if (variable_get('feeds_tests_hook_config_defaults', FALSE)) {
+    $config = $form['#configurable']->getConfig();
+
+    $form['feeds_tests_processor_extra_setting'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Extra setting'),
+      '#default_value' => $config['feeds_tests_processor_extra_setting'],
+    );
   }
 }
 
@@ -197,6 +274,7 @@ function feeds_tests_files_empty() {
  * @see FeedsFileHTTPTestCase::testHttpRequestUsingFileCache()
  * @see FeedsFileHTTPTestCase::testSourceCaching()
  * @see FeedsFileHTTPTestCase::testChangedSource()
+ * @see FeedsFileHTTPTestCase::testImportSourceWithMultipleCronRuns()
  */
 function feeds_tests_nodes() {
   if (variable_get('feeds_tests_nodes_changed', FALSE)) {
@@ -458,12 +536,22 @@ function feeds_tests_feeds_after_parse(FeedsSource $source, FeedsParserResult $r
       }
     }
   }
+
+  // Casts the 'uid' value to a float to ensure float values don't result into
+  // array_flip() warnings when using the value to load an user.
+  // @see FeedsRSStoNodesTest::testUidTargetWithFloat()
+  if (variable_get('feeds_tests_feeds_after_parse_uid_float_value', FALSE)) {
+    foreach ($result->items as &$item) {
+      $item['uid'] = (float) $item['uid'];
+    }
+  }
 }
 
 /**
  * Implements hook_feeds_after_save().
  *
  * @see FeedsFileFetcherTestCase::testRemoveFileAfterImportInBackground()
+ * @see FeedsFileHTTPTestCase::testImportSourceWithMultipleCronRuns()
  */
 function feeds_tests_feeds_after_save() {
   $sleep = variable_get('feeds_tests_feeds_after_save_sleep', FALSE);

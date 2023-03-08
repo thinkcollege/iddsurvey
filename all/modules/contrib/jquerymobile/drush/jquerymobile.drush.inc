@@ -31,7 +31,8 @@ function jquerymobile_drush_command() {
       'jquery' => dt('Enter the version of the jQuery framework you wish to download. If omitted Drush will use 1.6.4'),
       'path' => dt('Optional. A path to the download folder. If omitted Drush will use the default location (sites/all/libraries).'),
     ),
-   'bootstrap' => DRUSH_BOOTSTRAP_FULL,
+    // PF patched: https://www.drupal.org/files/issues/DRUSH_BOOTSTRAP_DRUPAL_FULL.patch
+   'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
   );
 
     return $items;

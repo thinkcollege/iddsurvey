@@ -3,16 +3,14 @@ description = Provides Metatag integration within the Panels interface.
 package = SEO
 core = 7.x
 
-dependencies[] = metatag:metatag
-dependencies[] = panels:panels
+dependencies[] = ctools
+dependencies[] = metatag
+dependencies[] = panels
+dependencies[] = token
 
-; Tests.
-files[] = tests/metatag_panels.test
-files[] = tests/metatag_panels.i18n.test
-
-; Information added by Drupal.org packaging script on 2017-03-06
-version = "7.x-1.21+3-dev"
+; Information added by Drupal.org packaging script on 2015-07-24
+version = "7.x-1.7"
 core = "7.x"
 project = "metatag"
-datestamp = "1488761287"
+datestamp = "1437763741"
 

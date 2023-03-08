@@ -38,11 +38,12 @@ class views_plugin_argument_validate_url_path extends views_plugin_argument_vali
       }
     }
     // Is it a path alias?
-    elseif ($nid = drupal_lookup_path('source', $argument)) {
+    elseif ($path = drupal_lookup_path('source', $argument)) {
       // Honor node_access so we don't inadvertently disclose the node title.
+      $nid = substr($path, 5);
       $title = db_select('node', 'n')
         ->addTag('node_access')
-        ->condition('nid', $argument, '=')
+        ->condition('nid', $nid, '=')
         ->fields('n', array('title'))
         ->execute()
         ->fetchField();
@@ -50,7 +51,7 @@ class views_plugin_argument_validate_url_path extends views_plugin_argument_vali
         $return = TRUE;
 
         // Convert the path alias to a nid.
-        $this->argument->argument = $argument;
+        $this->argument->argument = $nid;
 
         // Save the title() handlers some work.
         $this->argument->validated_title = check_plain($title);

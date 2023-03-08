@@ -38,6 +38,10 @@ function feeds_hook_info() {
     'feeds_processor_targets',
     'feeds_processor_targets_alter',
     'feeds_parser_sources_alter',
+    'feeds_config_defaults',
+    'feeds_fetcher_config_defaults',
+    'feeds_parser_config_defaults',
+    'feeds_processor_config_defaults',
   );
 
   return array_fill_keys($hooks, array('group' => 'feeds'));
@@ -91,6 +95,9 @@ function feeds_cron_job_scheduler_info() {
   $info['feeds_source_import'] = array(
     'queue name' => 'feeds_source_import',
   );
+  // feeds_source_clear never gets called, since we now use the queue directly.
+  // This is left in case any background jobs still running after an
+  // upgrade.
   $info['feeds_source_clear'] = array(
     'queue name' => 'feeds_source_clear',
   );
@@ -133,7 +140,9 @@ function feeds_cron_queue_info() {
  */
 function feeds_source_import(array $job) {
   $source = _feeds_queue_worker_helper($job, 'import');
-  $source->scheduleImport();
+  if ($source->doesExist()) {
+    $source->scheduleImport();
+  }
 }
 
 /**
@@ -141,7 +150,9 @@ function feeds_source_import(array $job) {
  */
 function feeds_source_clear(array $job) {
   $source = _feeds_queue_worker_helper($job, 'clear');
-  $source->scheduleClear();
+  if ($source->doesExist()) {
+    $source->scheduleClear();
+  }
 }
 
 /**
@@ -149,7 +160,9 @@ function feeds_source_clear(array $job) {
  */
 function feeds_source_expire(array $job) {
   $source = _feeds_queue_worker_helper($job, 'expire');
-  $source->scheduleExpire();
+  if ($source->doesExist()) {
+    $source->scheduleExpire();
+  }
 }
 
 /**
@@ -166,7 +179,8 @@ function _feeds_queue_worker_helper(array $job, $method) {
     $source->existing()->$method();
   }
   catch (FeedsNotExistingException $e) {
-    // Do nothing.
+    // Eventually remove the job from job scheduler.
+    JobScheduler::get('feeds_source_import')->remove($job);
   }
   catch (Exception $e) {
     $source->log($method, $e->getMessage(), array(), WATCHDOG_ERROR);
@@ -408,9 +422,11 @@ function feeds_admin_paths() {
  */
 function feeds_importer_load($id) {
   try {
-    return feeds_importer($id)->existing();
+    $importer = feeds_importer($id);
+    if ($importer->doesExist()) {
+      return $importer;
+    }
   }
-  catch (FeedsNotExistingException $e) {}
   catch (InvalidArgumentException $e) {}
 
   return FALSE;
@@ -679,9 +695,11 @@ function feeds_node_presave($node) {
  */
 function feeds_node_insert($node) {
   // Source attached to node.
-  feeds_node_update($node);
   if (isset($node->feeds) && $importer_id = feeds_get_importer_id($node->type)) {
     $source = feeds_source($importer_id, $node->nid);
+    $source->addConfig($node->feeds);
+    $source->save();
+
     // Start import if requested.
     if (feeds_importer($importer_id)->config['import_on_create'] && !isset($node->feeds['suppress_import'])) {
       $source->startImport();
@@ -700,6 +718,7 @@ function feeds_node_update($node) {
     $source = feeds_source($importer_id, $node->nid);
     $source->addConfig($node->feeds);
     $source->save();
+    $source->ensureSchedule();
   }
 }
 
@@ -912,7 +931,7 @@ function feeds_admin_menu_output_build(array &$content) {
   foreach (feeds_importer_load_all() as $importer) {
     $content['menu']['admin/content']['admin/content/feeds_import'][$importer->id] = array(
       '#title' => t($importer->config['name']),
-      '#href' => !empty($importer->config['content_type']) ? 'node/add/' . $importer->config['content_type'] : 'import/' . check_plain($importer->id),
+      '#href' => !empty($importer->config['content_type']) ? 'node/add/' . str_replace('_', '-', $importer->config['content_type']) : 'import/' . check_plain($importer->id),
       '#access' => user_access('administer feeds') || user_access("import $importer->id feeds"),
     );
   }

@@ -4,10 +4,17 @@ package = Date/Time
 core = 7.x
 configure = admin/config/date/date_popup
 
+; Only the Date API module is required.
 dependencies[] = date:date_api
 
-; Information added by Drupal.org packaging script on 2019-02-14
-version = "7.x-2.11-beta2+5-dev"
+; Test coverage.
+; @todo Replicate DateUiTestCase::testFieldUi().
+files[] = tests/DatePopupFieldTestCase.test
+files[] = tests/DatePopupValidationTestCase.test
+files[] = tests/DatePopupWithViewsTestCase.test
+
+; Information added by Drupal.org packaging script on 2023-02-01
+version = "7.x-2.14+2-dev"
 core = "7.x"
 project = "date"
-datestamp = "1550168894"
+datestamp = "1675273273"

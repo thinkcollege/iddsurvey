@@ -1,19 +1,12 @@
 name = Metatag: favicons
-description = "Provides support for many different favicons."
+description = "Provides support for custom favicons."
 package = SEO
 core = 7.x
-dependencies[] = metatag:metatag
+dependencies[] = metatag
 
-; Custom class for mask-icon.
-files[] = metatag_favicons.mask-icon.class.inc
-
-; Tests.
-files[] = tests/metatag_favicons.test
-files[] = tests/metatag_favicons.tags.test
-
-; Information added by Drupal.org packaging script on 2017-03-06
-version = "7.x-1.21+3-dev"
+; Information added by Drupal.org packaging script on 2015-07-24
+version = "7.x-1.7"
 core = "7.x"
 project = "metatag"
-datestamp = "1488761287"
+datestamp = "1437763741"
 

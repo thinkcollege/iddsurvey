@@ -1,46 +1,45 @@
 <?php
 
 /**
- * @file
- * Documents Block reference's hooks for api reference.
- */
-
-/**
- * Alter the potential references.
+ * Alter referenceable blocks, BEFORE the autocomplete match.
  *
- * DEPRECATED in favor of hook_blockreference_potential_references2_alter().
+ * These are always block objects, not options. You can change the option label
+ * by changing $block->info.
  *
- * @param $references
- *  The references array to be modified.
- * @param $field
- *  Array containing field data.
- * @param $return_full_blocks
- *  Whether to return full blocks.
- * @param $string
- *  Filter string to match blocks.
- * @param $exact_string
- *  Strictly match string like for validation.
+ * For autocomplete fields, this alter happens AFTER the search, before slicing
+ * the results (ACDB does that).
+ *
+ * $context contains:
+ * - instance
+ * - type ("autocomplete" or "options_list", depending on where this list is
+ * requested)
+ * - entity
+ * - entity_type
  */
-function hook_blockreference_potential_references_alter(&$references, $field, $current_bids = array()) {
-  // no example code
+function hook_blockreference_blocks_pre_alter(&$blocks, $context) {
+  // These are all the blocks that match the field instance's referenceable module option. If you were to change
+  // a block's label now, that's the label the autocomplete will try to match.
+  foreach ($blocks as $id => $block) {
+    // Add module & delta to pretty label.
+    $block->info .= ' (' . $block->module . '/' . $block->delta . ')';
+    // Remove all Views blocks, except 'public_stuff'.
+    if ($block->module == 'views' && strpos($block->delta, 'public_stuff-') !== 0) {
+      unset($blocks[$id]);
+    }
+  }
 }
 
 /**
- * Alter the potential references.
+ * Alter referenceable blocks, AFTER the autocomplete match.
  *
- * @param $blocks
- *  List of referenceable blocks. Always keyed by bid. Might
- *  contain full block objects or only block titles, depending
- *  on `$context['return_full_blocks']`.
- * @param $context
- *  Assoc array containing:
- *  - field: Array: Array containing field data from field_info_field().
- *  - current_bids: Array: current field values.
- *  - return_full_blocks: Bool: Whether to return full blocks.
- *  - string: String: Filter string to match blocks.
- *  - exact_string: Bool: Strictly match string like for validation.
+ * Same exact API as hook_blockreference_blocks_pre_alter().
  */
-function hook_blockreference_potential_references2_alter(&$blocks, $context) {
-  $secret_bid = db_query('SELECT bid FROM {block} WHERE module = ? AND delta = ?', array('foo', 'bar'))->fetchField();
-  unset($blocks[$secret_bid]);
+function hook_blockreference_blocks_post_alter(&$blocks, $context) {
+  // These are the exact blocks in the result. If the widget is an autocomplete, it will be cut off after 10 (?)
+  // elements, so sorting is important. If you change the label here, the displayed labels will be different than
+  // the matched labels, so probably don't do that.
+  // Reverse sort, because I'm like that.
+  uasort($blocks, function ($a, $b) {
+    return strnatcasecmp($b->info, $a->info);
+  });
 }

@@ -4,8 +4,8 @@ core = 7.x
 package = Date/Time
 hidden = TRUE
 
-; Information added by Drupal.org packaging script on 2019-02-14
-version = "7.x-2.11-beta2+5-dev"
+; Information added by Drupal.org packaging script on 2023-02-01
+version = "7.x-2.14+2-dev"
 core = "7.x"
 project = "date"
-datestamp = "1550168894"
+datestamp = "1675273273"

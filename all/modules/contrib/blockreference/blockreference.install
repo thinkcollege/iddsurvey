@@ -2,58 +2,64 @@
 
 /**
  * @file
- * Block reference install file.
+ * Block Reference install & updates.
  */
 
- /**
-  * Implements hook_requirements().
-  */
- function blockreference_requirements($phase) {
-  $requirements = array();
-  // Ensure translations don't break at install time
-  $t = get_t();
-  $drupal_version = '7.14';
-
-  if (version_compare(VERSION, $drupal_version) < 0) {
-    $requirements['drupal'] = array(
-      'title' => $t('Drupal'),
-      'value' => VERSION,
-      'description' => $t(
-        'Your Drupal installation is too old. Block reference requires at least Drupal %version.',
-        array('%version' => $drupal_version)
-      ),
-      'severity' => REQUIREMENT_ERROR,
-    );
-  }
-
-  if ($phase == 'runtime') {
-    module_load_include('inc', 'field', 'field.info');
-    module_load_include('inc', 'field', 'field.crud');
-
-    $has_select_sort = FALSE;
-    $instances = field_info_instances();
-    foreach ($instances as $entity_type) {
-      foreach ($entity_type as $bundle) {
-        foreach ($bundle as $instance) {
-          if ($instance['widget']['type'] == 'blockreference_select_sort') {
-            $has_select_sort = TRUE;
-            break 3;
-          }
-        }
+/**
+ * Convert bid storage to module/delta storage.
+ */
+function blockreference_update_7200() {
+  $old_schema = drupal_get_schema(NULL, TRUE);
+  // Find fields & tables.
+  $all_fields = field_info_field_map();
+  $alter_tables = array();
+  foreach ($all_fields as $field_name => $field) {
+    if ($field['type'] == 'blockreference') {
+      $table_name = 'field_data_' . $field_name;
+      $alter_tables[$table_name] = $field_name;
+      $revision_table_name = 'field_revision_' . $field_name;
+      if (isset($old_schema[$revision_table_name])) {
+        $alter_tables[$revision_table_name] = $field_name;
       }
     }
-    if ($has_select_sort) {
-      $requirements['blockreference'] = array(
-        'title' => $t('Block reference'),
-        'description' => $t(
-          'Block reference select lists (with drag-and-drop sort) are deprecated.  Please use the <a href="!field_collection">Field collection</a> module.',
-          array('!field_collection' => 'http://www.drupal.org/project/field_collection')
-        ),
-        'severity' => REQUIREMENT_WARNING,
-        'value' => '',
-      );
-    }
   }
-
-  return $requirements;
+  $col_spec = array(
+    'type' => 'varchar',
+    'length' => 129, // 4 x 32 + 1 should be enough
+    'not null' => TRUE,
+    'default' => '',
+  );
+  $invalid_bids = array();
+  foreach ($alter_tables as $table_name => $field_name) {
+    $column_bid = $field_name . '_bid';
+    $column_moddelta = $field_name . '_moddelta';
+    // Alter table columns.
+    db_add_field($table_name, $column_moddelta, $col_spec);
+    // Convert bids to moddeltas.
+    db_query("
+      UPDATE {{$table_name}}
+      SET
+        $column_moddelta = (SELECT CONCAT(module, ':', delta) FROM {block} WHERE bid = {{$table_name}}.$column_bid)
+      WHERE
+        $column_bid IN (SELECT bid FROM {block})
+    ")->execute();
+    $invalid_bids = array_merge(
+      $invalid_bids,
+      array_values(db_query("
+        SELECT $column_bid
+        FROM {$table_name}
+        WHERE $column_moddelta = ''
+      ")->fetchCol(0, 0))
+    );
+    // Alter table columns.
+    db_drop_field($table_name, $column_bid);
+    // Alter table columns.
+    db_add_index($table_name, 'moddelta', array($column_moddelta));
+  }
+  if ($invalid_bids) {
+    $invalid_bids = array_unique($invalid_bids);
+    drupal_set_message(format_string("@num block ids could not be converted, because they don't exist (anymore).", array(
+      '@num' => count($invalid_bids),
+    )), 'warning');
+  }
 }

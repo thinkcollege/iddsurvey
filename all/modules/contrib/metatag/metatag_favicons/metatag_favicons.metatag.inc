@@ -34,29 +34,29 @@ function metatag_favicons_metatag_info() {
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
     'group' => 'favicons',
-    'url' => TRUE,
     'context' => array('global'),
   );
 
   $info['tags']['shortcut icon'] = array(
-    'label' => t('Default shortcut icon'),
-    'description' => t('The traditional favicon, must be either a GIF, ICO, JPG/JPEG or PNG image.'),
-    'weight' => ++$weight,
-    'element' => array(
-      '#rel' => 'shortcut icon',
-      '#theme' => 'metatag_shortcut_icon',
-    ),
+      'label' => t('Default shortcut icon'),
+      'description' => t('The traditional favicon, must be either a GIF, ICO, JPG/JPEG or PNG image.'),
+      'weight' => ++$weight,
+      'element' => array(
+        '#rel' => 'shortcut icon',
+        '#theme' => 'metatag_shortcut_icon',
+      ),
   ) + $favicon_defaults;
 
-  $info['tags']['mask-icon'] = array(
+  $info['tags']['icon_any'] = array(
     'label' => t('Icon: SVG'),
-    'description' => t('A grayscale scalable vector graphic (SVG) file.'),
+    'description' => t('A grayscale scalable vector graphic (SVG) file. To color the icon, use the "theme color" meta tag under "Mobile & UI Adjustments".'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_mask_icon',
+      '#rel' => 'icon',
+      '#sizes' => 'any',
+      '#theme' => 'metatag_favicon',
+      '#mask' => 'mask',
     ),
-    'class' => 'DrupalMaskIconMetaTag',
-    'replaces' => array('icon_any'),
   ) + $favicon_defaults;
 
   $info['tags']['icon_16x16'] = array(

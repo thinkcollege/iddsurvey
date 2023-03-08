@@ -9,10 +9,10 @@
  */
 function metatag_context_context_overview() {
   $contexts = context_enabled_contexts(TRUE);
+  $header = array(t('Name'), t('Paths'), t('Operations'));
+  $rows = array();
 
-  $header = array(t('Name'), t('Paths'), t('Weight'), t('Operations'));  $rows = array();
-
-  $caption = t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a>. Use the weight to specify the order the context meta tags run.', array('@url' => url('admin/config/search/metatags/config/global')));
+  $caption = t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a> and will override any other meta tags assigned elsewhere.', array('@url' => url('admin/config/search/metatags/config/global')));
 
   foreach ($contexts as $name => $context) {
     // Only show context items that are specifically selected to be "Shown on
@@ -23,15 +23,12 @@ function metatag_context_context_overview() {
         l(t('Delete'), 'admin/config/search/metatags/context/' . $context->name . '/delete', array('query' => array('destination' => 'admin/config/search/metatags/context'))),
       );
       $rows[] = array(
-        'name' => $context->name,
-        'path' => isset($context->conditions['path']) ? htmlspecialchars(implode(', ', $context->conditions['path']['values'])) : t('No path condition.'),
-        'weight' => isset($context->reactions['metatag_context_reaction']['weight']) ? $context->reactions['metatag_context_reaction']['weight'] : 0,
-        'ops' => implode(' | ', $ops),
+        $context->name,
+        isset($context->conditions['path']) ? htmlspecialchars(implode(', ', $context->conditions['path']['values'])) : t('No path condition.'),
+        implode(' | ', $ops),
       );
     }
   }
-  uasort($rows, 'drupal_sort_weight');
-
   return theme('table', array('header' => $header, 'rows' => $rows, 'caption' => $caption));
 }
 
@@ -88,12 +85,6 @@ function metatag_context_config_add_form_submit($form, &$form_state) {
   $context = metatag_context_load_default_context();
   $context->name = $form_state['values']['name'];
   context_save($context);
-
-  // Update the i18n strings.
-  if (!empty($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE])) {
-    metatag_translations_update($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE], 'metatag_context:' . $context->name);
-  }
-
   $form_state['redirect'] = 'admin/config/search/metatags/context/' . $context->name;
 }
 
@@ -108,9 +99,7 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
   // Don't care about the instance name, the data is being managed by Context
   // and not Metatag.
   $instance = "";
-  $options = array(
-    'token types' => array('node', 'term', 'user'),
-  );
+  $options = array();
 
   $metatags = $context->reactions['metatag_context_reaction']['metatags'];
   if (!isset($metatags[LANGUAGE_NONE])) {
@@ -149,10 +138,13 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
 
   $form['help'] = array(
     '#prefix' => '<hr /><p><em>',
-    '#markup' => t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a>.', array('@url' => url('admin/config/search/metatags/config/global'))),
+    '#markup' => t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a> and will override any other meta tags assigned elsewhere.', array('@url' => url('admin/config/search/metatags/config/global'))),
     '#suffix' => '</em></p>',
     '#weight' => -99,
   );
+
+  // Show all tokens.
+  $form['metatags']['tokens']['#token_types'] = 'all';
 
   $form['metatags']['#type'] = 'container';
   unset($form['metatags']['#collapsed']);
@@ -183,12 +175,6 @@ function metatag_context_config_edit_form_submit($form, &$form_state) {
   $paths = array_combine($paths, $paths);
   $context->conditions['path']['values'] = $paths;
   context_save($context);
-
-  // Update the i18n strings.
-  if (!empty($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE])) {
-    metatag_translations_update($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE], 'metatag_context:' . $context->name);
-  }
-
   $form_state['redirect'] = 'admin/config/search/metatags/context';
 }
 

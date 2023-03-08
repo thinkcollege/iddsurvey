@@ -228,12 +228,18 @@ function date_update_7005() {
  * Add date value indexes to existed field tables.
  */
 function date_update_7006() {
-  // Get all fields provided by Data module.
-  $fields = db_select('field_config', 'f')
+  // Get all fields provided by the Data module.
+  $query = db_select('field_config', 'f')
     ->fields('f', array('id', 'field_name', 'data'))
-    ->condition('f.type', array('datetime', 'date', 'datestamp'))
-    ->execute()
-    ->fetchAllAssoc('id');
+    ->condition('f.type', array('datetime', 'date', 'datestamp'));
+
+  // Special handling for the Encrypt module.
+  if (module_exists('field_encrypt')) {
+    $query->condition('f.data', '%' . db_like(' field_encrypt";a:1:{s:7:"encrypt";i:0 ') . '%', 'LIKE');
+  }
+
+  // Complete the query.
+  $fields = $query->execute()->fetchAllAssoc('id');
 
   foreach ($fields as $id => $info) {
     $field_info = field_info_field($info->field_name);
@@ -288,11 +294,22 @@ function date_update_7006() {
 function date_update_7007() {
   $fields = field_read_fields(array('type' => 'datestamp'));
   foreach ($fields as $field_name => $field) {
-    foreach ($field['columns'] as $column_name => $schema) {
+    foreach (array_intersect_key($field['columns'], drupal_map_assoc(array('value', 'value2'))) as $column_name => $schema) {
       $schema['size'] = 'big';
       $column = $field_name . '_' . $column_name;
-      db_change_field('field_data_' . $field_name, $column, $column, $schema);
-      db_change_field('field_revision_' . $field_name, $column, $column, $schema);
+      if (db_table_exists('field_data_' . $field_name)) {
+        db_change_field('field_data_' . $field_name, $column, $column, $schema);
+      }
+      if (db_table_exists('field_revision_' . $field_name)) {
+        db_change_field('field_revision_' . $field_name, $column, $column, $schema);
+      }
     }
   }
+}
+
+/**
+ * The date_migrate_example module was renamed.
+ */
+function date_update_7200() {
+  db_delete('system')->condition('name', 'date_migrate_example')->execute();
 }

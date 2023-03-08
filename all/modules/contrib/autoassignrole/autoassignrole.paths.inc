@@ -13,7 +13,7 @@
  * role-specific pages are being called rather than the default ones.
  */
 
-// We require this file from the user module to get the user_pass form.
+//We require this file from the user module to get the user_pass form.
 require_once drupal_get_path('module', 'user') . '/user.pages.inc';
 
 /**
@@ -25,13 +25,11 @@ require_once drupal_get_path('module', 'user') . '/user.pages.inc';
  *
  * @see autoassignrole.module
  *
- * @param int $rid
+ * @param $rid
  *   $rid is the 'rid_page_id' of the page we are currently generating.
  *
  * @return string
  *   User registration form renderer.
- *
- * @see autoassignrole_get_active_path_rid()
  */
 function autoassignrole_register($rid) {
   $output = drupal_get_form('user_register_form');
@@ -39,7 +37,7 @@ function autoassignrole_register($rid) {
 }
 
 /**
- * Loads the user login form.
+ * Loads the user login form
  */
 function autoassignrole_login() {
   $output = drupal_get_form('user_login');
@@ -47,7 +45,7 @@ function autoassignrole_login() {
 }
 
 /**
- * Loads the password reset form.
+ * Loads the password reset form
  */
 function autoassignrole_password() {
   $output = drupal_get_form('user_pass');
