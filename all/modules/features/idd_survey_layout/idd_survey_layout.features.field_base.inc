@@ -1659,8 +1659,8 @@ function idd_survey_layout_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => array(
-          'vocabulary' => 'states',
           'parent' => 0,
+          'vocabulary' => 'states',
         ),
       ),
     ),

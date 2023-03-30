@@ -161,7 +161,6 @@ features[field_base][] = field_which_of_the_following_sou
 features[field_group][] = group_com_nw_2a_srcs|node|idd_survey|default
 features[field_group][] = group_comm_bsd_non_work|node|idd_survey|form
 features[field_group][] = group_comm_fund_amt|node|idd_survey|form
-features[field_group][] = group_contact_information|node|idd_survey|print
 features[field_group][] = group_contact_info|node|idd_survey|form
 features[field_group][] = group_dayemp_4a|node|idd_survey|default
 features[field_group][] = group_emp_day_svc_amount|node|idd_survey|form
