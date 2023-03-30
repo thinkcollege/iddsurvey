@@ -8,7 +8,7 @@ dependencies[] = ctools:page_manager
 dependencies[] = panels:panels
 
 ; Information added by Drupal.org packaging script on 2023-01-31
-version = "7.x-1.20+6-dev"
+version = "7.x-1.21"
 core = "7.x"
 project = "ctools"
-datestamp = "1675149611"
+datestamp = "1675152418"

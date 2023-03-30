@@ -417,9 +417,12 @@ function reference_option_limit_field_attach_form($entity_type, $entity, &$form,
         // @todo: Figure out what on earth should happen when we have more than one column!
         $column = $match_columns[$field_name_matching][0];
 
-        foreach ($values_field_matching as $delta => $item) {
-          $match_values[$field_name_matching][$delta] = $item[$column];
+        if ($values_field_matching) {
+          foreach ($values_field_matching as $delta => $item) {
+            $match_values[$field_name_matching][$delta] = $item[$column];
+          }
         }
+
       }
       else {
         // This is an initial build of the form for a new entity.
@@ -497,18 +500,18 @@ function reference_option_limit_field_attach_form($entity_type, $entity, &$form,
 
     // Load the resulting entities.
     if (!empty($result[$referred_entity_type])) {
-      $entities = entity_load($referred_entity_type, array_keys($result[$referred_entity_type]));
+      $option_entities = entity_load($referred_entity_type, array_keys($result[$referred_entity_type]));
     }
     else {
-      $entities = array();
+      $option_entities = array();
     }
-    //dsm($entities);
+    //dsm($option_entities);
 
     // Build an array of options.
     $options_limited = array();
-    foreach ($entities as $entity) {
-       list($id, $vid, $bundle) = entity_extract_ids($referred_entity_type, $entity);
-       $options_limited[$id] = entity_label($referred_entity_type, $entity);
+    foreach ($option_entities as $option_entity) {
+       list($opt_id, $opt_vid, $opt_bundle) = entity_extract_ids($referred_entity_type, $option_entity);
+       $options_limited[$opt_id] = entity_label($referred_entity_type, $option_entity);
     }
     $options_limited_empty = (count($options_limited) == 0);
 
@@ -516,7 +519,9 @@ function reference_option_limit_field_attach_form($entity_type, $entity, &$form,
     // to get a properties array to pass to _options_prepare_options().
     $type = str_replace('options_', '', $field_instance_option_limited['widget']['type']);
     $multiple = $field_option_limited['cardinality'] > 1 || $field_option_limited['cardinality'] == FIELD_CARDINALITY_UNLIMITED;
-    $required = $element_limited[LANGUAGE_NONE]['#required'];
+
+    $required = $element_limited[LANGUAGE_NONE]['#required'] ?? FALSE;
+
     $has_value = TRUE; // isset($items[0][$value_key]); ?????
     $properties = _options_properties($type, $multiple, $required, $has_value);
 
