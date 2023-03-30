@@ -7,6 +7,10 @@
  Drupal.behaviors.startScan = {
     attach: function (context, settings) {
       $( document ).one('ready',scanFieldsets);
+      /*$('#edit-group_fac_based').prop('disabled', true);
+      $('a[href="#edit-group_fac_based"]').addClass('noSelect').attr('tabindex','-1');
+
+      $('a[href="#edit-group_fac_based"]').parent("li").addClass('noSelect').attr('tabindex','-1'); */
       $('th').text('Order').hide();
       if (!$('#edit-group_contact_info p.nextSec').length)$('#edit-group_contact_info').append('<p class="nextSec"><a class="openTab" href="#edit-group_number_served">>> Next: Section I FY totals for all day and employment services >></a></p>');
       if (!$('#edit-group_number_served p.nextSec').length)$('#edit-group_number_served').append('<p class="nextSec"><a class="openTab" href="#edit-group_integ_employ_svces">>> Next: Section II Integrated employment services >></a></p>');
@@ -409,15 +413,15 @@ function processNumVars(idstring, typeint) {
 }
 
 function addNumFields() {
-  var secIoneTot = null;
-  var secIEntrFundTtl = null;
-  var secIXix= null;
-  var secIState = null;
-  var secIOthSelf = null;
-  var secIAutoFundTtl = null;
+var secIoneTot = null;
+var secIEntrFundTtl = null;
+var secIXix= null;
+var secIState = null;
+var secIOthSelf = null;
+var secIAutoFundTtl = null;
 
-  var integTotServed = null;
-  var integPaidTot = null;
+var integTotServed = null;
+var integPaidTot = null;
 var integEntrFundTtl = null;
 var integXix= null;
 var integState = null;
@@ -572,11 +576,11 @@ cbNworkTotInd = processNumVars('edit-field-comm-total-num-indiv-und-0-value',fal
 if(secIEntrFundTtl && ( integEntrFundTtl || fbWorkEntrFundTtl || cbNworkEntrFundTtl || fBNworkEntrFundTtl || othEmSvcEntrFundTtl)) {
   var uri = window.location.href.split("#")[0];
             $('#finalTotals').html('<span class="whiteBlock"><h3>Here are the funding totals you entered:</h3><ul><li><strong><a class="openTab bolded" href="#edit-group_number_served">Section I question 4, Total dollars spent on employment and day services:</a> $' + secIEntrFundTtl + '</strong></li></ul><h4>Subtotals:</h4><ul style="margin-left: 30px">' + (integEntrFundTtl ? '<li><a class="openTab" href="#edit-group_integ_employ_svces">Section II question 4 Total dollars spent on integrated employment services:</a> <strong>$' + integEntrFundTtl + '</strong></li>' : '') + (fbWorkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_facility_based">Section III question 3 Total dollars spent on facility-based work services</a>: <strong>$' + fbWorkEntrFundTtl + '</strong></li>' : '')  + (cbNworkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV question 3 Total dollars spent on community-based non-work services:</a> <strong>$' + cbNworkEntrFundTtl + '</strong></li>' : '')  + (fBNworkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_fac_based">Section V question 2 Total dollars spent on facility-based non-work services</a>: <strong>$' + fBNworkEntrFundTtl + '</strong></li>' : '')  + (othEmSvcEntrFundTtl ? '<li><a class="openTab" href="#edit-group_oth_emp_day_svcs">Section VI question 3 Total dollars spent on other employment and day services</a>: <strong>$' + othEmSvcEntrFundTtl + '</strong></li>' : '') + '</ul></span>');
-integNum = processNumVars('edit-field-integ-total-expenditure-und-0-value', true) != ''? processNumVars('edit-field-integ-total-expenditure-und-0-value', true): 0;
-fbwNum = processNumVars('edit-field-fac-total-expendit-und-0-value', true) != '' ? processNumVars('edit-field-fac-total-expendit-und-0-value', true):0;
-cbNwNum = processNumVars('edit-field-comm-total-expenditure-und-0-value', true) != '' ? processNumVars('edit-field-comm-total-expenditure-und-0-value', true):0;
-fbNwNum = processNumVars('edit-field-fac-non-wk-tot-expend-und-0-value', true) != '' ? processNumVars('edit-field-fac-non-wk-tot-expend-und-0-value', true): 0;
-othEmNum = processNumVars('edit-field-oth-emp-day-total-funds-und-0-value', true) != '' ? processNumVars('edit-field-oth-emp-day-total-funds-und-0-value', true):0;
+            var integNum = processNumVars('edit-field-integ-total-expenditure-und-0-value', true) != ''? processNumVars('edit-field-integ-total-expenditure-und-0-value', true): 0;
+            var fbwNum = processNumVars('edit-field-fac-total-expendit-und-0-value', true) != '' ? processNumVars('edit-field-fac-total-expendit-und-0-value', true):0;
+            var cbNwNum = processNumVars('edit-field-comm-total-expenditure-und-0-value', true) != '' ? processNumVars('edit-field-comm-total-expenditure-und-0-value', true):0;
+            var fbNwNum = processNumVars('edit-field-fac-non-wk-tot-expend-und-0-value', true) != '' ? processNumVars('edit-field-fac-non-wk-tot-expend-und-0-value', true): 0;
+            var othEmNum = processNumVars('edit-field-oth-emp-day-total-funds-und-0-value', true) != '' ? processNumVars('edit-field-oth-emp-day-total-funds-und-0-value', true):0;
             autoTotal = integNum + fbwNum + cbNwNum + fbNwNum + othEmNum;
             autoTotal = commifyNum(autoTotal);
             if( autoTotal && autoTotal != secIEntrFundTtl)  { $('#edit-field-save-and-return #finalTotals .whiteBlock .calcWarn').remove(); $('#finalTotals .whiteBlock').append('<span class="calcWarn">The value of total funds spent on day and employment services entered in Section I <u>$' + secIEntrFundTtl + '</u>  does not match the total of funds entered in the subsections enumerated above: <u><strong>$' + autoTotal +'</strong></u>.  Please check your figures to be sure they are accurate.</span>'); } else { if ($('#edit-field-save-and-return #finalTotals .calcWarn')) $('#edit-field-save-and-return #finalTotals .calcWarn').remove(); }
