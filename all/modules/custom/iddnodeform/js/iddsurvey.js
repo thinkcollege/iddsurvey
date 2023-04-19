@@ -455,12 +455,12 @@ var fBNworkState = null;
 var fBNworkOthSelf = null;
 var fBNworkAutoFundTtl = null;
 
-var allNworkTotInd = null;
-var allNworkEntrFundTtl = null;
-var allNworkXix= null;
-var allNworkState = null;
-var allNworkOthSelf = null;
-var allNworkAutoFundTtl = null;
+var allNWorkTotInd = null;
+var allNWorkEntrFundTtl = null;
+var allNWorkXix= null;
+var allNWorkState = null;
+var allNWorkOthSelf = null;
+var allNWorkAutoFundTtl = null;
 
 var othEmSvcEntrFundTtl = null;
 var othEmSvcXix= null;
@@ -590,11 +590,12 @@ cbNworkTotInd = processNumVars('edit-field-comm-total-num-indiv-und-0-value',fal
       allNWorkState = processNumVars('edit-field-all-non-wk-state-cty-amt-und-0-value',true);
       allNWorkOthSelf = processNumVars('edit-field-all-non-wk-other-amt-und-0-value',true);
       if (allNWorkXix || allNWorkState || allNWorkOthSelf) { allNWorkAutoFundTtl = allNWorkXix + allNWorkState + allNWorkOthSelf;
+
         allNWorkAutoFundTtl = commifyNum(allNWorkAutoFundTtl);
+        console.log('subvalues exist: ' + allNWorkAutoFundTtl);
+        $('.group-all-non-wk-fund-amt #allNWorkAutoFundTtl').html('<span class="whiteBlock">Total of amounts entered under question IV-All 2a: $' + allNWorkAutoFundTtl + '<span>'); } else {$('.group-all-non-wk-fund-amt #allNWorkAutoFundTtl').html('');   console.log('subvalues do not exist');}
 
-        $('group-all-non-wk-fund-amt #allNWorkAutoFundTtl').html('<span class="whiteBlock">Total of amounts entered under question IV-All 2a: $' + allNWorkAutoFundTtl + '<span>'); } else {$('group-all-non-wk-fund-amt #allNWorkAutoFundTtl').html('');}
-
-        if (allNWorkAutoFundTtl && allNWorkEntrFundTtl != allNWorkAutoFundTtl) { $('group-all-non-wk-fund-amt #allNWorkAutoFundTtl').next($('.calcWarn')).remove(); $('.group-all-non-wk-fund-amt #allNWorkAutoFundTtl').after('<span class="calcWarn">The value of total funds entered in question 2 above ($' + allNWorkEntrFundTtl + ')  does not match the total of funds entered in the fields under question 2a</span>'); } else { if ($('.group-all-non-wk-fund-amt .calcWarn')) $('.group-all-non-wk-fund-amt .calcWarn').remove(); }
+        if (allNWorkAutoFundTtl && allNWorkEntrFundTtl != allNWorkAutoFundTtl) { $('.group-all-non-wk-fund-amt #allNWorkAutoFundTtl').next($('.calcWarn')).remove(); $('.group-all-non-wk-fund-amt #allNWorkAutoFundTtl').after('<span class="calcWarn">The value of total funds entered in question 2 above ($' + allNWorkEntrFundTtl + ')  does not match the total of funds entered in the fields under question 2a</span>'); } else { if ($('.group-all-non-wk-fund-amt .calcWarn')) $('.group-all-non-wk-fund-amt .calcWarn').remove(); }
 
 
           othEmSvcEntrFundTtl =  processNumVars('edit-field-oth-emp-day-total-funds-und-0-value',false);
