@@ -8,11 +8,12 @@
     attach: function (context, settings) {
       $( document ).one('ready',scanFieldsets);
       $('th').text('Order').hide();
+      var nwScan = showHideNonwork();
       if (!$('#edit-group_contact_info p.nextSec').length)$('#edit-group_contact_info').append('<p class="nextSec"><a class="openTab" href="#edit-group_number_served">>> Next: Section I FY totals for all day and employment services >></a></p>');
       if (!$('#edit-group_number_served p.nextSec').length)$('#edit-group_number_served').append('<p class="nextSec"><a class="openTab" href="#edit-group_integ_employ_svces">>> Next: Section II Integrated employment services >></a></p>');
       if (!$('#edit-group_integ_employ_svces p.nextSec').length) $('#edit-group_integ_employ_svces').append('<p class="nextSec"><a class="openTab" href="#edit-group_facility_based">>> Next: Section III Facility-based work services >></a></p>');
-      if (!$('#edit-group_facility_based p.nextSec').length) $('#edit-group_facility_based').append('<p class="nextSec"><a class="openTab" href="#edit-group_comm_bsd_non_work">>> Next: Section IV Community-based non-work services >></a></p>');
-      if (!$('#edit-group_comm_bsd_non_work p.nextSec').length) $('#edit-group_comm_bsd_non_work').append('<p class="nextSec"><a class="openTab" href="#edit-group_fac_based">>> Next: Section V Facility-based non-work services >></a></p>');
+      if (!$('#edit-group_facility_based p.nextSec').length) $('#edit-group_facility_based').append('<p class="nextSec"><a class="openTab" href="#edit-group_comm_bsd_non_work">>> Next: Section IV Non-work services >></a></p>');
+      if (!$('#edit-group_comm_bsd_non_work p.nextSec').length) $('#edit-group_comm_bsd_non_work').append('<p class="nextSec"><a class="openTab" href="#edit-group_oth_emp_day_svcs">>> Next: Section V Other employment and day services >></a></p>');
 
       if (!$('#edit-group_fac_based p.nextSec').length) $('#edit-group_fac_based').append('<p class="nextSec"><a class="openTab" href="#edit-group_oth_emp_day_svcs">>> Next: Section VI Other employment and day services >></a></p>');
       if (!$('#edit-group_oth_emp_day_svcs p.nextSec').length) $('#edit-group_oth_emp_day_svcs').append('<p class="nextSec"><a class="openTab" href="#edit-group_final_step">>> Next: Section VII Final step >></a></p>');
@@ -23,6 +24,7 @@
       if (!$('#fbWorkAutoFundTtl').length)  $('.group-fac-amt').append('<p id="fbWorkAutoFundTtl" class="fundingTotal group-fac"></p>');
       if (!$('#cbNworkAutoFundTtl').length) $('.group-comm-fund-amt').append('<p id="cbNworkAutoFundTtl" class="fundingTotal group-comm-fund"></p>');
       if (!$('#fBNworkAutoFundTtl').length) $('.group_fac_non_w_fund_amt').append('<p id="fBNworkAutoFundTtl" class="fundingTotal group_fac_non"></p>');
+      if (!$('#allNWorkAutoFundTtl').length) $('.group-all-non-wk-fund-amt').append('<p id="allNWorkAutoFundTtl" class="fundingTotal group-all-fund"></p>');
       if (!$('#othEmSvcAutoFundTtl').length) $('.group-oth-emp-day-fund-amt').append('<p id="othEmSvcAutoFundTtl" class="fundingTotal group-oth-emp"></p>');
       if(!$('#finalTotals').length) $('#edit-field-save-and-return').append('<p id="finalTotals" class="fundingTotal"></p><p id="indivTotals" class="fundingTotal"></p>');
       if(!$('#saveWarn').length ) $('#edit-submit').after('<p id="saveWarn">Be sure to Save before exiting this page or you will lose your work.  You can log out and return later to continue your work.</p><a id="logOutbut" href="/user/logout">Log out</a><p><strong>When you are completely finished editing your data go to the "Final Step" page and follow the final submit instructions</strong></p>');
@@ -50,6 +52,15 @@
  Drupal.behaviors.hideHeds = {
     attach: function (context, settings) {
         $(".form-radios input").bind("click focus", hideSecHeds);
+
+    }
+  }
+
+ Drupal.behaviors.toggleNW = {
+    attach: function (context, settings) {
+
+
+      $('#nonchecks input[type="radio"]').bind("click focus", showHideNonwork );
 
     }
   }
@@ -444,6 +455,13 @@ var fBNworkState = null;
 var fBNworkOthSelf = null;
 var fBNworkAutoFundTtl = null;
 
+var allNworkTotInd = null;
+var allNworkEntrFundTtl = null;
+var allNworkXix= null;
+var allNworkState = null;
+var allNworkOthSelf = null;
+var allNworkAutoFundTtl = null;
+
 var othEmSvcEntrFundTtl = null;
 var othEmSvcXix= null;
 var othEmSvcState = null;
@@ -454,6 +472,7 @@ var secInumServed= null;
 var secIInumServed = null;
 var secIIInumServed = null;
 var secIVnumServed = null;
+var secIVAnumServed = null;
 var secVnumServed = null;
 var secVInumServed = null;
 var autoTtlIndvs = null;
@@ -500,24 +519,29 @@ secIIInumServed = processNumVars('edit-field-fac-total-num-of-ind-und-0-value',t
 if(secIIInumServed && (secIIInumServed > secInumServed)) { $('#edit-field-fac-total-num-of-ind .calcWarn').remove(); $('#edit-field-fac-total-num-of-ind').append('<span class="calcWarn">The number of individuals entered in question 1a  above (' + commifyNum(secIIInumServed) + ')  is greater than the total number of individuals served by your state in <a class="openTab bolded" href="#edit-group_number_served">Section I question 1</a> (' + commifyNum(secInumServed) + ')</span>'); } else { if ($('#edit-field-fac-total-num-of-ind .calcWarn')) $('#edit-field-fac-total-num-of-ind .calcWarn').remove(); }
 
 secIVnumServed = processNumVars('edit-field-comm-total-num-indiv-und-0-value',true);
-if(secIVnumServed && (secIVnumServed > secInumServed)) { $('#edit-field-comm-total-num-indiv .calcWarn').remove(); $('#edit-field-comm-total-num-indiv').append('<span class="calcWarn">The number of individuals entered in question 1a  above (' + commifyNum(secIVnumServed) + ')  is greater than the total number of individuals served by your state in <a class="openTab bolded" href="#edit-group_number_served">Section I question 1</a> (' + commifyNum(secInumServed) + ')</span>'); } else { if ($('#edit-field-comm-total-num-indiv .calcWarn')) $('#edit-field-comm-total-num-indiv .calcWarn').remove(); }
+if(secIVnumServed && (secIVnumServed > secInumServed)) { $('#edit-field-comm-total-num-indiv .calcWarn').remove(); $('#edit-field-comm-total-num-indiv').append('<span class="calcWarn">The number of individuals entered in question IV-CB 1a  above (' + commifyNum(secIVnumServed) + ')  is greater than the total number of individuals served by your state in <a class="openTab bolded" href="#edit-group_number_served">Section I question 1</a> (' + commifyNum(secInumServed) + ')</span>'); } else { if ($('#edit-field-comm-total-num-indiv .calcWarn')) $('#edit-field-comm-total-num-indiv .calcWarn').remove(); }
 
 secVnumServed = processNumVars('edit-field-fac-bas-num-indvs-und-0-value',true);
-if(secVnumServed && (secVnumServed > secInumServed)) { $('#edit-field-fac-bas-num-indvs .calcWarn').remove(); $('#edit-field-fac-bas-num-indvs').append('<span class="calcWarn">The number of individuals entered in question 1a  above (' + commifyNum(secVnumServed) + ')  is greater than the total number of individuals served by your state in <a class="openTab bolded" href="#edit-group_number_served">Section I question 1</a> (' + commifyNum(secInumServed) + ')</span>'); } else { if ($('#edit-field-fac-bas-num-indvs .calcWarn')) $('#edit-field-fac-bas-num-indvs .calcWarn').remove(); }
+if(secVnumServed && (secVnumServed > secInumServed)) { $('#edit-field-fac-bas-num-indvs .calcWarn').remove(); $('#edit-field-fac-bas-num-indvs').append('<span class="calcWarn">The number of individuals entered in question IV-FB 1a  above (' + commifyNum(secVnumServed) + ')  is greater than the total number of individuals served by your state in <a class="openTab bolded" href="#edit-group_number_served">Section I question 1</a> (' + commifyNum(secInumServed) + ')</span>'); } else { if ($('#edit-field-fac-bas-num-indvs .calcWarn')) $('#edit-field-fac-bas-num-indvs .calcWarn').remove(); }
+
+secIVAnumServed = processNumVars('edit-field-all-non-work-total-und-0-value',true);
+if(secIVAnumServed && (secIVAnumServed > secInumServed)) { $('#edit-field-all-non-work-total .calcWarn').remove(); $('#edit-field-all-non-work-total').append('<span class="calcWarn">The number of individuals entered in question IV-All 1a  above (' + commifyNum(secIVAnumServed) + ')  is greater than the total number of individuals served by your state in <a class="openTab bolded" href="#edit-group_number_served">Section I question 1</a> (' + commifyNum(secInumServed) + ')</span>'); } else { if ($('#edit-field-all-non-work-total .calcWarn')) $('#edit-field-all-non-work-total .calcWarn').remove(); }
+
 
 secVInumServed = processNumVars('edit-field-oth-emp-day-num-indv-und-0-value',true);
 if(secVInumServed && (secVInumServed > secInumServed)) { $('#edit-field-oth-emp-day-num-indv .calcWarn').remove(); $('#edit-field-oth-emp-day-num-indv').append('<span class="calcWarn">The number of individuals entered in question 1a  above (' + commifyNum(secVInumServed) + ')  is greater than the total number of individuals served by your state in <a class="openTab bolded" href="#edit-group_number_served">Section I question 1</a> (' + commifyNum(secInumServed) + ')</span>'); } else { if ($('#edit-field-oth-emp-day-num-indv .calcWarn')) $('#edit-field-oth-emp-day-num-indv .calcWarn').remove(); }
 
-if(secInumServed && (secIInumServed || secIIInumServed || secIVnumServed || secVnumServed || secVInumServed)) {
+if(secInumServed && (secIInumServed || secIIInumServed || secIVnumServed || secIVAnumServed || secVnumServed || secVInumServed)) {
 
-  $('#indivTotals').html('<span class="whiteBlock"><h3>Here are the individuals served totals you entered:</h3><ul><li><strong><a class="openTab bolded" href="#edit-group_number_served">Section I question 1, Total number of individuals in employment and day services in the F.Y.:</a> ' + commifyNum(secInumServed) + '</strong></li></ul><h4>Subtotals:</h4><ul style="margin-left: 30px">' + (secIInumServed ? '<li><a class="openTab" href="#edit-group_integ_employ_svces">Section II question 1a Total individuals in integrated employment services:</a> <strong>' + commifyNum(secIInumServed) + '</strong></li>' : '') + (secIIInumServed ? '<li><a class="openTab" href="#edit-group_facility_based">Section III question 1a Total individuals in facility-based work services</a>: <strong>' + commifyNum(secIIInumServed) + '</strong></li>' : '')  + (secIVnumServed ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV question 1a Total individuals in community-based non-work services:</a> <strong>' + commifyNum(secIVnumServed) + '</strong></li>' : '')  + (secVnumServed ? '<li><a class="openTab" href="#edit-group_fac_based">Section V question 1a Total individuals in facility-based non-work services</a>: <strong>' + commifyNum(secVnumServed) + '</strong></li>' : '')  + (secVInumServed ? '<li><a class="openTab" href="#edit-group_oth_emp_day_svcs">Section VI question 1a Total individuals in other employment and day services</a>: <strong>' + commifyNum(secVInumServed) + '</strong></li>' : '') + '</ul></span>');
+  $('#indivTotals').html('<span class="whiteBlock"><h3>Here are the individuals served totals you entered:</h3><ul><li><strong><a class="openTab bolded" href="#edit-group_number_served">Section I question 1, Total number of individuals in employment and day services in the F.Y.:</a> ' + commifyNum(secInumServed) + '</strong></li></ul><h4>Subtotals:</h4><ul style="margin-left: 30px">' + (secIInumServed ? '<li><a class="openTab" href="#edit-group_integ_employ_svces">Section II question 1a Total individuals in integrated employment services:</a> <strong>' + commifyNum(secIInumServed) + '</strong></li>' : '') + (secIIInumServed ? '<li><a class="openTab" href="#edit-group_facility_based">Section III question 1a Total individuals in facility-based work services</a>: <strong>' + commifyNum(secIIInumServed) + '</strong></li>' : '')  + (secIVnumServed ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV question IV-CB 1a Total individuals in community-based non-work services:</a> <strong>' + commifyNum(secIVnumServed) + '</strong></li>' : '')  + (secVnumServed ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV-FB question 1a Total individuals in facility-based non-work services</a>: <strong>' + commifyNum(secVnumServed) + '</strong></li>' : '')  + (secIVAnumServed ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV-All question 1a Total individuals in non-work services:</a> <strong>' + commifyNum(secIVAnumServed) + '</strong></li>' : '')  + (secVInumServed ? '<li><a class="openTab" href="#edit-group_oth_emp_day_svcs">Section VI question 1a Total individuals in other employment and day services</a>: <strong>' + commifyNum(secVInumServed) + '</strong></li>' : '') + '</ul></span>');
 secInumServed = secInumServed ? secInumServed : 0;
 secIInumServed = secIInumServed ? secIInumServed : 0;
 secIIInumServed = secIIInumServed ? secIIInumServed : 0;
-secIVnumServed = secIVnumServed ? secIVnumServed : 0;
+secIVnumServed = secIVnumServed ? secIVAnumServed : 0;
+secIVAnumServed = secIVAnumServed ? secIVnumServed : 0;
 secVnumServed = secVnumServed ? secVnumServed : 0;
 secVInumServed = secVInumServed ? secVInumServed : 0;
-autoTtlIndvs = secIInumServed + secIIInumServed + secIVnumServed + secVnumServed + secVInumServed;
+autoTtlIndvs = secIInumServed + secIIInumServed + secIVnumServed + secIVAnumServed + secVnumServed + secVInumServed;
 
   if( autoTtlIndvs && autoTtlIndvs != secInumServed)  { $('#edit-field-save-and-return #indivTotals .whiteBlock .calcWarn').remove(); $('#indivTotals .whiteBlock').append('<span class="calcWarn">The total of individuals served in Section I <u>' + commifyNum(secInumServed) + '</u>  does not match the total of individuals served in the subsections enumerated above: <u><strong>' + commifyNum(autoTtlIndvs) +'</strong></u>.  This is expected when  individuals engage in more than one setting, but we encourage you to make sure the relationship between the two numbers accurately reflects your state\'s experience. </span>'); } else { if ($('#edit-field-save-and-return #indivTotals .calcWarn')) $('#edit-field-save-and-return #indivTotals .calcWarn').remove(); }
 
@@ -543,7 +567,7 @@ cbNworkTotInd = processNumVars('edit-field-comm-total-num-indiv-und-0-value',fal
   if (cbNworkXix || cbNworkState || cbNworkOthSelf) { cbNworkAutoFundTtl = cbNworkXix + cbNworkState + cbNworkOthSelf;
     cbNworkAutoFundTtl = commifyNum(cbNworkAutoFundTtl);
 
-    $('.group-comm-fund-amt #cbNworkAutoFundTtl').html('<span class="whiteBlock">Total of amounts entered under question IV 2a: $' + cbNworkAutoFundTtl + '<span>'); } else {$('.group-comm-fund-amt #cbNworkAutoFundTtl').html('');}
+    $('.group-comm-fund-amt #cbNworkAutoFundTtl').html('<span class="whiteBlock">Total of amounts entered under question IV-CB 2a: $' + cbNworkAutoFundTtl + '<span>'); } else {$('.group-comm-fund-amt #cbNworkAutoFundTtl').html('');}
 
     if (cbNworkAutoFundTtl && cbNworkEntrFundTtl != cbNworkAutoFundTtl) { $('.group-comm-fund-amt #cbNworkAutoFundTtl').next($('.calcWarn')).remove(); $('.group-comm-fund-amt #cbNworkAutoFundTtl').after('<span class="calcWarn">The value of total funds entered in question 2 above ($' + cbNworkEntrFundTtl + ')  does not match the total of funds entered in the fields under question 2a</span>'); } else { if ($('.group-comm-fund-amt .calcWarn')) $('.group-comm-fund-amt .calcWarn').remove(); }
 
@@ -557,7 +581,21 @@ cbNworkTotInd = processNumVars('edit-field-comm-total-num-indiv-und-0-value',fal
 
       $('.group_fac_non_w_fund_amt #fBNworkAutoFundTtl').html('<span class="whiteBlock">Total of amounts entered under question V 2a: $' + fBNworkAutoFundTtl + '<span>'); } else {$('.group_fac_non_w_fund_amt #fBNworkAutoFundTtl').html('');}
 
-      if (fBNworkAutoFundTtl && fBNworkEntrFundTtl != fBNworkAutoFundTtl) { $('.group_fac_non_w_fund_amt #fBNworkAutoFundTtl').next($('.calcWarn')).remove(); $('.group_fac_non_w_fund_amt #fBNworkAutoFundTtl').after('<span class="calcWarn">The value of total funds entered in question 2 above ($' + fBNworkEntrFundTtl + ')  does not match the total of funds entered in the fields under question 2a</span>'); } else { if ($('.group_fac_non_w_fund_amt .calcWarn')) $('.group_fac_non_w_fund_amt .calcWarn').remove(); }
+      if (fBNworkAutoFundTtl && fBNworkEntrFundTtl != fBNworkAutoFundTtl) { $('.group_fac_non_w_fund_amt #fBNworkAutoFundTtl').next($('.calcWarn')).remove(); $('.group_fac_non_w_fund_amt #fBNworkAutoFundTtl').after('<span class="calcWarn">The value of total funds entered in question IV-FB 2 above ($' + fBNworkEntrFundTtl + ')  does not match the total of funds entered in the fields under question 2a</span>'); } else { if ($('.group_fac_non_w_fund_amt .calcWarn')) $('.group_fac_non_w_fund_amt .calcWarn').remove(); }
+
+      allNWorkTotInd = processNumVars('edit-field-all-non-work-total-und-0-value',false);
+      if (allNWorkTotInd) popNumSpans('allNWorkTotInd',allNWorkTotInd);
+      allNWorkEntrFundTtl =  processNumVars('edit-field-all-non-wk-total-expend-und-0-value',false);
+      allNWorkXix = processNumVars('edit-field-all-non-wk-titlexix-amt-und-0-value',true);
+      allNWorkState = processNumVars('edit-field-all-non-wk-state-cty-amt-und-0-value',true);
+      allNWorkOthSelf = processNumVars('edit-field-all-non-wk-other-amt-und-0-value',true);
+      if (allNWorkXix || allNWorkState || allNWorkOthSelf) { allNWorkAutoFundTtl = allNWorkXix + allNWorkState + allNWorkOthSelf;
+        allNWorkAutoFundTtl = commifyNum(allNWorkAutoFundTtl);
+
+        $('group-all-non-wk-fund-amt #allNWorkAutoFundTtl').html('<span class="whiteBlock">Total of amounts entered under question IV-All 2a: $' + allNWorkAutoFundTtl + '<span>'); } else {$('group-all-non-wk-fund-amt #allNWorkAutoFundTtl').html('');}
+
+        if (allNWorkAutoFundTtl && allNWorkEntrFundTtl != allNWorkAutoFundTtl) { $('group-all-non-wk-fund-amt #allNWorkAutoFundTtl').next($('.calcWarn')).remove(); $('.group-all-non-wk-fund-amt #allNWorkAutoFundTtl').after('<span class="calcWarn">The value of total funds entered in question 2 above ($' + allNWorkEntrFundTtl + ')  does not match the total of funds entered in the fields under question 2a</span>'); } else { if ($('.group-all-non-wk-fund-amt .calcWarn')) $('.group-all-non-wk-fund-amt .calcWarn').remove(); }
+
 
           othEmSvcEntrFundTtl =  processNumVars('edit-field-oth-emp-day-total-funds-und-0-value',false);
           othEmSvcXix = processNumVars('edit-field-oth-emp-day-xix-amt-und-0-value',true);
@@ -569,9 +607,9 @@ cbNworkTotInd = processNumVars('edit-field-comm-total-num-indiv-und-0-value',fal
             $('.group-oth-emp-day-fund-amt #othEmSvcAutoFundTtl').html('<span class="whiteBlock">Total of amounts entered under question V 2a: $' + othEmSvcAutoFundTtl + '<span>'); } else {$('.group-oth-emp-day-fund-amt #othEmSvcAutoFundTtl').html('');}
 
             if (othEmSvcAutoFundTtl && othEmSvcEntrFundTtl != othEmSvcAutoFundTtl) { $('.group-oth-emp-day-fund-amt #othEmSvcAutoFundTtl').next($('.calcWarn')).remove(); $('.group-oth-emp-day-fund-amt #othEmSvcAutoFundTtl').after('<span class="calcWarn">The value of total funds entered in question 2 above ($' + othEmSvcEntrFundTtl + ')  does not match the total of funds entered in the fields under question 2a</span>'); } else { if ($('.group-oth-emp-day-fund-amt .calcWarn')) $('.group-oth-emp-day-fund-amt .calcWarn').remove(); }
-if(secIEntrFundTtl && ( integEntrFundTtl || fbWorkEntrFundTtl || cbNworkEntrFundTtl || fBNworkEntrFundTtl || othEmSvcEntrFundTtl)) {
+if(secIEntrFundTtl && ( integEntrFundTtl || fbWorkEntrFundTtl || cbNworkEntrFundTtl || fBNworkEntrFundTtl || allNworkEntrFundTtl || othEmSvcEntrFundTtl)) {
   var uri = window.location.href.split("#")[0];
-            $('#finalTotals').html('<span class="whiteBlock"><h3>Here are the funding totals you entered:</h3><ul><li><strong><a class="openTab bolded" href="#edit-group_number_served">Section I question 4, Total dollars spent on employment and day services:</a> $' + secIEntrFundTtl + '</strong></li></ul><h4>Subtotals:</h4><ul style="margin-left: 30px">' + (integEntrFundTtl ? '<li><a class="openTab" href="#edit-group_integ_employ_svces">Section II question 4 Total dollars spent on integrated employment services:</a> <strong>$' + integEntrFundTtl + '</strong></li>' : '') + (fbWorkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_facility_based">Section III question 3 Total dollars spent on facility-based work services</a>: <strong>$' + fbWorkEntrFundTtl + '</strong></li>' : '')  + (cbNworkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV question 3 Total dollars spent on community-based non-work services:</a> <strong>$' + cbNworkEntrFundTtl + '</strong></li>' : '')  + (fBNworkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_fac_based">Section V question 2 Total dollars spent on facility-based non-work services</a>: <strong>$' + fBNworkEntrFundTtl + '</strong></li>' : '')  + (othEmSvcEntrFundTtl ? '<li><a class="openTab" href="#edit-group_oth_emp_day_svcs">Section VI question 3 Total dollars spent on other employment and day services</a>: <strong>$' + othEmSvcEntrFundTtl + '</strong></li>' : '') + '</ul></span>');
+            $('#finalTotals').html('<span class="whiteBlock"><h3>Here are the funding totals you entered:</h3><ul><li><strong><a class="openTab bolded" href="#edit-group_number_served">Section I question 4, Total dollars spent on employment and day services:</a> $' + secIEntrFundTtl + '</strong></li></ul><h4>Subtotals:</h4><ul style="margin-left: 30px">' + (integEntrFundTtl ? '<li><a class="openTab" href="#edit-group_integ_employ_svces">Section II question 4 Total dollars spent on integrated employment services:</a> <strong>$' + integEntrFundTtl + '</strong></li>' : '') + (fbWorkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_facility_based">Section III question 3 Total dollars spent on facility-based work services</a>: <strong>$' + fbWorkEntrFundTtl + '</strong></li>' : '')  + (cbNworkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV-CB question 3 Total dollars spent on community-based non-work services:</a> <strong>$' + cbNworkEntrFundTtl + '</strong></li>' : '')  + (fBNworkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV-FB question 2 Total dollars spent on facility-based non-work services</a>: <strong>$' + fBNworkEntrFundTtl + '</strong></li>' : '')  + (allNWorkEntrFundTtl ? '<li><a class="openTab" href="#edit-group_comm_bsd_non_work">Section IV question IV-All 3 Total dollars spent on all non-work services:</a> <strong>$' + allNWorkEntrFundTtl + '</strong></li>' : '')  + (othEmSvcEntrFundTtl ? '<li><a class="openTab" href="#edit-group_oth_emp_day_svcs">Section VI question 3 Total dollars spent on other employment and day services</a>: <strong>$' + othEmSvcEntrFundTtl + '</strong></li>' : '') + '</ul></span>');
 integNum = processNumVars('edit-field-integ-total-expenditure-und-0-value', true) != ''? processNumVars('edit-field-integ-total-expenditure-und-0-value', true): 0;
 fbwNum = processNumVars('edit-field-fac-total-expendit-und-0-value', true) != '' ? processNumVars('edit-field-fac-total-expendit-und-0-value', true):0;
 cbNwNum = processNumVars('edit-field-comm-total-expenditure-und-0-value', true) != '' ? processNumVars('edit-field-comm-total-expenditure-und-0-value', true):0;
@@ -585,25 +623,25 @@ othEmNum = processNumVars('edit-field-oth-emp-day-total-funds-und-0-value', true
 }
 
 function scanFieldsets () {
-var hideHeds = hideSecHeds();
-  var origID = '';
-  $('.vertical-tabs-panes > fieldset').each(function(i, el) {
+  var hideHeds = hideSecHeds();
+    var origID = '';
+    $('.vertical-tabs-panes > fieldset').each(function(i, el) {
 
-if ($(el).hasClass('active') ) {origID = $(el).attr('id');}
+  if ($(el).hasClass('active') ) {origID = $(el).attr('id');}
 
-      else {  $(el).addClass('active'); }
- makeActiveTab.call($(el));
- $(el).removeClass('active');
- $(el).removeClass('activeTwo');
+        else {  $(el).addClass('active'); }
+   makeActiveTab.call($(el));
+   $(el).removeClass('active');
+   $(el).removeClass('activeTwo');
+    });
+  $('.vertical-tabs-list li a').each(function(i, elem) {
+
+
+    $(elem).removeClass('activeTwo');
+
   });
-$('.vertical-tabs-list li a').each(function(i, elem) {
 
-
-  $(elem).removeClass('activeTwo');
-
-});
-
-$('#' + origID).addClass('active');
+  $('#' + origID).addClass('active');
 }
 
 function makeActiveTab() {
@@ -688,76 +726,107 @@ $(el).val(commafield);
 });
 
 }
-
-function emptyFieldWarn() {
- var warnText = "";
-
-var centerPopup = $('div.vertical-tabs-panes');
-
-if (!$(this).hasClass('activeTwo')) {
-  var lastlink = $('.vertical-tabs-list li a.activeTwo').attr("href");
-  var heading =$('.vertical-tabs-list li a.activeTwo').text();
-  var queryString =  $(location).attr('pathname');
-
-  $('div.vertical-tabs-panes > fieldset.activeTwo .fieldReq').each(function(i, elem) {
-   groupId = $(elem).attr('id');
-   var radioLabel = $('label[for="' + groupId + '"]').text().length ? $('label[for="' + groupId + '"]').text() : $('label[for="' + groupId + '-und"]').text();
-
-
-   if (!$('#' + groupId + ' input').is(":checked")) { warnText += "<li>" + radioLabel + "</li>";
-  // $('#' + groupId).addClass('redLine');
-
+function showHideNonwork() {
+  console.log("showHide function ran");
+  var comBlock = null;
+  var facBlock = null;
+  var allBlock = null;
+  var facChecked = $('input[name="field_fac_bas_y_n[und]"]:checked').val();
+  var comChecked = $('input[name="field_comm_does_state_offer[und]"]:checked').val();
+  var allChecked = $('input[name="field_all_nonwork_separate_types[und]"]:checked').val();
+  facBlock = !facChecked || facChecked == 'No' || allChecked == 'No' ? null : 1;
+  comBlock = !comChecked || comChecked == 'No' || allChecked == 'No' ? null : 1;
+  allBlock = (!allChecked || allChecked == 'Yes')|| (facChecked == 'No' && comChecked == 'No') ? null : 1;
+  if(comBlock) {
+    if ($('#showhidecomnw').hasClass('hideNW')) $('#showhidecomnw').removeClass('hideNW');
+  } else {
+    if (!$('#showhidecomnw').hasClass('hideNW')) $('#showhidecomnw').addClass('hideNW');
+  }
+  if(facBlock) {
+    if ($('#showhidefacnw').hasClass('hideNW')) $('#showhidefacnw').removeClass('hideNW');
+  } else {
+    if (!$('#showhidefacnw').hasClass('hideNW')) $('#showhidefacnw').addClass('hideNW');
+  }
+  if(allBlock) {
+    if ($('#showhideallnw').hasClass('hideNW')) $('#showhideallnw').removeClass('hideNW');
+  } else {
+    if (!$('#showhideallnw').hasClass('hideNW')) $('#showhideallnw').addClass('hideNW');
   }
 
 
 
+
+}
+
+function emptyFieldWarn() {
+   var warnText = "";
+
+   var centerPopup = $('div.vertical-tabs-panes');
+
+  if (!$(this).hasClass('activeTwo')) {
+    var lastlink = $('.vertical-tabs-list li a.activeTwo').attr("href");
+    var heading =$('.vertical-tabs-list li a.activeTwo').text();
+    var queryString =  $(location).attr('pathname');
+
+    $('div.vertical-tabs-panes > fieldset.activeTwo .fieldReq').each(function(i, elem) {
+     groupId = $(elem).attr('id');
+     var radioLabel = $('label[for="' + groupId + '"]').text().length ? $('label[for="' + groupId + '"]').text() : $('label[for="' + groupId + '-und"]').text();
+
+
+     if (!$('#' + groupId + ' input').is(":checked")) { warnText += "<li>" + radioLabel + "</li>";
+    // $('#' + groupId).addClass('redLine');
+
+    }
+
+
+
+    });
+
+  $('div.vertical-tabs-panes > fieldset.activeTwo .visDiv > input').each(function(i, elem) {
+  if(  !$(elem).val() && !$(elem).hasClass('notReq')) {
+  var label = "<li>" + $('label[for="'+ $(elem).attr('id')+'"]').text() + "</li>";
+  // $(elem).addClass('redLine');
+   warnText += label;}
+
   });
 
-$('div.vertical-tabs-panes > fieldset.activeTwo .visDiv > input').each(function(i, elem) {
-if(  !$(elem).val() && !$(elem).hasClass('notReq')) {
-var label = "<li>" + $('label[for="'+ $(elem).attr('id')+'"]').text() + "</li>";
-// $(elem).addClass('redLine');
- warnText += label;}
 
-});
+   var tabfilled = false;
+  $('#idd_popup #popupText').empty() ;
+  if (warnText != "") {
 
+     $('#idd_popup #popupText').append("<p>The following fields are required in the section <strong>" + heading + "</span></strong></p><ul>" + warnText + "</ul>");
+    /* $('#idd_popup').popup({
+                   tooltipanchor: centerPopup,
+                autoopen: true,
+                horizontal: 'center',
+                vertical: 'center',
+                type: 'overlay',
+                closeelement: '.basic_close',
+              transition: 'all 0.9s'
+            }); */
 
- var tabfilled = false;
-$('#idd_popup #popupText').empty() ;
-if (warnText != "") {
+  } else { tabfilled = true;    if(tabfilled) { $('.vertical-tabs-list li a.activeTwo').addClass('tabFilled'); }}
+  $('.vertical-tabs-list li a').each(function(i, el) {
 
-   $('#idd_popup #popupText').append("<p>The following fields are required in the section <strong>" + heading + "</span></strong></p><ul>" + warnText + "</ul>");
-  /* $('#idd_popup').popup({
-                 tooltipanchor: centerPopup,
-              autoopen: true,
-              horizontal: 'center',
-              vertical: 'center',
-              type: 'overlay',
-              closeelement: '.basic_close',
-            transition: 'all 0.9s'
-          }); */
-
-} else { tabfilled = true;    if(tabfilled) { $('.vertical-tabs-list li a.activeTwo').addClass('tabFilled'); }}
-$('.vertical-tabs-list li a').each(function(i, el) {
-
-      $(el).removeClass('activeTwo');
+        $(el).removeClass('activeTwo');
 
 
-});
+  });
 
 
-$('.vertical-tabs-panes > fieldset').each(function(i, el) {
+  $('.vertical-tabs-panes > fieldset').each(function(i, el) {
 
-      $(el).removeClass('activeTwo');
+        $(el).removeClass('activeTwo');
 
 
-});
+  });
 
-/*setTimeout(function(){
-  $('#idd_popup').popup('hide');
-}, 5000); */
+  /*setTimeout(function(){
+    $('#idd_popup').popup('hide');
+  }, 5000); */
 
- }
+   }
 
 }
 

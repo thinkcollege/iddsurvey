@@ -632,6 +632,394 @@ function idd_survey_layout_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-idd_survey-field_all_non_wk_comments'.
+  $field_instances['node-idd_survey-field_all_non_wk_comments'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 65,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_wk_comments',
+    'label' => 'Comments on the fiscal year totals for all non-work services',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 190,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-idd_survey-field_all_non_wk_oth_selfpay_chk'.
+  $field_instances['node-idd_survey-field_all_non_wk_oth_selfpay_chk'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 63,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_wk_oth_selfpay_chk',
+    'label' => 'Other (self-pay, JTPA, grants, DD Council, etc.)',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 182,
+    ),
+  );
+
+  // Exported field_instance: 'node-idd_survey-field_all_non_wk_other_amt'.
+  $field_instances['node-idd_survey-field_all_non_wk_other_amt'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'bigint',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ',',
+        ),
+        'type' => 'number_bigint',
+        'weight' => 64,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_wk_other_amt',
+    'label' => 'Dollar amount of "Other" funds spent on all non-work services',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'size' => 60,
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'bigint',
+      'settings' => array(),
+      'type' => 'number_bigint',
+      'weight' => 183,
+    ),
+  );
+
+  // Exported field_instance: 'node-idd_survey-field_all_non_wk_state_cty_amt'.
+  $field_instances['node-idd_survey-field_all_non_wk_state_cty_amt'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'bigint',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ',',
+        ),
+        'type' => 'number_bigint',
+        'weight' => 62,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_wk_state_cty_amt',
+    'label' => 'Dollar amount of State, county or local IDD funds spent on all non-work services',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'size' => 60,
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'bigint',
+      'settings' => array(),
+      'type' => 'number_bigint',
+      'weight' => 181,
+    ),
+  );
+
+  // Exported field_instance: 'node-idd_survey-field_all_non_wk_titlexix_amt'.
+  $field_instances['node-idd_survey-field_all_non_wk_titlexix_amt'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'bigint',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ',',
+        ),
+        'type' => 'number_bigint',
+        'weight' => 60,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_wk_titlexix_amt',
+    'label' => 'Dollar amount of Title XIX Medicaid waivers spent on all non-work services',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'size' => 60,
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'bigint',
+      'settings' => array(),
+      'type' => 'number_bigint',
+      'weight' => 179,
+    ),
+  );
+
+  // Exported field_instance: 'node-idd_survey-field_all_non_wk_titlexix_chk'.
+  $field_instances['node-idd_survey-field_all_non_wk_titlexix_chk'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 59,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_wk_titlexix_chk',
+    'label' => 'Title XIX Medicaid waivers',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 178,
+    ),
+  );
+
+  // Exported field_instance: 'node-idd_survey-field_all_non_wk_total_expend'.
+  $field_instances['node-idd_survey-field_all_non_wk_total_expend'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'bigint',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ',',
+        ),
+        'type' => 'number_bigint',
+        'weight' => 58,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_wk_total_expend',
+    'label' => 'Total number of dollars spent on non-work services for individuals funded or monitored by your state IDD agency in FY 2020. Plea',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'size' => 60,
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'bigint',
+      'settings' => array(),
+      'type' => 'number_bigint',
+      'weight' => 188,
+    ),
+  );
+
+  // Exported field_instance: 'node-idd_survey-field_all_non_work_total'.
+  $field_instances['node-idd_survey-field_all_non_work_total'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'bigint',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ',',
+        ),
+        'type' => 'number_bigint',
+        'weight' => 57,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_non_work_total',
+    'label' => 'List the total count of individuals who received either community-based or facility-based facility-based non-work services funde',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'size' => 60,
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'bigint',
+      'settings' => array(),
+      'type' => 'number_bigint',
+      'weight' => 187,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-idd_survey-field_all_nonwork_separate_types'.
+  $field_instances['node-idd_survey-field_all_nonwork_separate_types'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 56,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_all_nonwork_separate_types',
+    'label' => 'Is your state able to separate individual’s participation in facility-based and community-based non-work services in your report',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 192,
+    ),
+  );
+
   // Exported field_instance:
   // 'node-idd_survey-field_com_non_other_selfpy_check'.
   $field_instances['node-idd_survey-field_com_non_other_selfpy_check'] = array(
@@ -808,7 +1196,7 @@ function idd_survey_layout_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 21,
+      'weight' => 19,
     ),
   );
 
@@ -842,7 +1230,7 @@ function idd_survey_layout_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_comm_does_state_offer',
-    'label' => '1.  Does your state agency fund or monitor community-based non-work services?',
+    'label' => 'Does your state agency fund or monitor community-based non-work services?',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -852,7 +1240,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 12,
+      'weight' => 190,
     ),
   );
 
@@ -1235,7 +1623,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'bigint',
       'settings' => array(),
       'type' => 'number_bigint',
-      'weight' => 19,
+      'weight' => 17,
     ),
   );
 
@@ -1401,7 +1789,7 @@ function idd_survey_layout_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 12,
+      'weight' => 20,
     ),
   );
 
@@ -1787,7 +2175,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'bigint',
       'settings' => array(),
       'type' => 'number_bigint',
-      'weight' => 9,
+      'weight' => 17,
     ),
   );
 
@@ -1821,7 +2209,7 @@ function idd_survey_layout_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_fac_bas_y_n',
-    'label' => '1.  Does your state agency fund or monitor facility-based non-work services?',
+    'label' => 'Does your state agency fund or monitor facility-based non-work services?',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1831,7 +2219,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 8,
+      'weight' => 191,
     ),
   );
 
@@ -2349,7 +2737,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'bigint',
       'settings' => array(),
       'type' => 'number_bigint',
-      'weight' => 10,
+      'weight' => 18,
     ),
   );
 
@@ -5286,6 +5674,43 @@ function idd_survey_layout_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-idd_survey-field_non_wk_state_cty_chk'.
+  $field_instances['node-idd_survey-field_non_wk_state_cty_chk'] = array(
+    'bundle' => 'idd_survey',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 61,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_non_wk_state_cty_chk',
+    'label' => 'State, county, or local IDD funds',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 180,
+    ),
+  );
+
   // Exported field_instance:
   // 'node-idd_survey-field_of_the_total_number_of_ind'.
   $field_instances['node-idd_survey-field_of_the_total_number_of_ind'] = array(
@@ -6721,8 +7146,6 @@ function idd_survey_layout_field_default_field_instances() {
   t(' 5.  Does your state agency maintain a waiting list for employment and day services?');
   t(' Of the total number of individuals in FY 2016 working in paid integrated jobs in the community (insert response to section II. ');
   t(' Of the total number of individuals served in employment and day services (insert total entered in 1 here) is your state able to');
-  t('1.  Does your state agency fund or monitor community-based non-work services?');
-  t('1.  Does your state agency fund or monitor facility-based non-work services?');
   t('1.  Does your state agency fund or monitor other employment and day services?');
   t('1. Does your state agency fund or monitor facility-based work services?');
   t('1. Does your state agency fund or monitor integrated employment services?');
@@ -6754,6 +7177,7 @@ function idd_survey_layout_field_default_field_instances() {
   t('Check this box and hit the "Save" button to notify our project manager that your report is complete.');
   t('City');
   t('Comments  on the fiscal year totals for other employment and day services');
+  t('Comments on the fiscal year totals for all non-work services');
   t('Comments on the fiscal year totals for community-based non-work services');
   t('Comments on the fiscal year totals for facility-based non-work services');
   t('Comments on the fiscal year totals for facility-based work services');
@@ -6763,19 +7187,24 @@ function idd_survey_layout_field_default_field_instances() {
   t('Department of Mental Health');
   t('Department of Vocational Rehabilitation');
   t('Department of Vocational Rehabilitiation');
+  t('Does your state agency fund or monitor community-based non-work services?');
+  t('Does your state agency fund or monitor facility-based non-work services?');
   t('Does your state have a short term employment services');
   t('Dollar amount of "Other" funds  spent on employment and day services');
+  t('Dollar amount of "Other" funds spent on all non-work services');
   t('Dollar amount of "Other" funds spent on community-based non-work services');
   t('Dollar amount of "Other" funds spent on facility-based non-work services');
   t('Dollar amount of "Other" funds spent on facility-based work services');
   t('Dollar amount of "Other" funds spent on integrated employment');
   t('Dollar amount of "Other" funds spent on other employment and day services');
+  t('Dollar amount of State, county or local IDD funds spent on all non-work services');
   t('Dollar amount of State, county or local IDD funds spent on community-based non-work services');
   t('Dollar amount of State, county or local IDD funds spent on employment and day services');
   t('Dollar amount of State, county or local IDD funds spent on facility-based non-work services');
   t('Dollar amount of State, county or local IDD funds spent on facility-based work services');
   t('Dollar amount of State, county or local IDD funds spent on integrated employment');
   t('Dollar amount of State, county or local IDD funds spent on other employment and day services');
+  t('Dollar amount of Title XIX Medicaid waivers spent on all non-work services');
   t('Dollar amount of Title XIX Medicaid waivers spent on community-based non-work services');
   t('Dollar amount of Title XIX Medicaid waivers spent on employment and day services');
   t('Dollar amount of Title XIX Medicaid waivers spent on facility -based work services');
@@ -6786,6 +7215,8 @@ function idd_survey_layout_field_default_field_instances() {
   t('How many in paid integrated jobs self employed, do you have a number?');
   t('If a specific point in time, please specify the point in time (mm/dd/yyyy)');
   t('Is your state able to determine the total number of individuals served in integrated employment services (insert response to que');
+  t('Is your state able to separate individual’s participation in facility-based and community-based non-work services in your report');
+  t('List the total count of individuals who received either community-based or facility-based facility-based non-work services funde');
   t('Number of individuals served by "Other"');
   t('Number of individuals served by the Department of Educ./local school system');
   t('Number of individuals served by the Department of Educ./local school system ');
@@ -6822,6 +7253,7 @@ function idd_survey_layout_field_default_field_instances() {
   t('Title XIX Medicaid waivers');
   t('Total in paid integrated jobs in the community (insert response to section II. 2a here) how many individuals were in individua');
   t('Total number in group supported jobs');
+  t('Total number of dollars spent on non-work services for individuals funded or monitored by your state IDD agency in FY 2020. Plea');
   t('What "Other" entity funded/monitored long term integrated employment services');
   t('What "Other" entity funded/monitoried long term facility-based employment services?');
   t('What were the "other sources?" ');

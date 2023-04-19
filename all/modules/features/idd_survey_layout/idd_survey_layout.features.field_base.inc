@@ -85,6 +85,209 @@ function idd_survey_layout_field_default_field_bases() {
     'type' => 'list_text',
   );
 
+  // Exported field_base: 'field_all_non_wk_comments'.
+  $field_bases['field_all_non_wk_comments'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_wk_comments',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_long',
+  );
+
+  // Exported field_base: 'field_all_non_wk_oth_selfpay_chk'.
+  $field_bases['field_all_non_wk_oth_selfpay_chk'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_wk_oth_selfpay_chk',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'Other (self-pay, JTPA, grants, DD Council, etc.)' => 'Other (self-pay, JTPA, grants, DD Council, etc.)',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
+  // Exported field_base: 'field_all_non_wk_other_amt'.
+  $field_bases['field_all_non_wk_other_amt'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_wk_other_amt',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'bigint',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_bigint',
+  );
+
+  // Exported field_base: 'field_all_non_wk_state_cty_amt'.
+  $field_bases['field_all_non_wk_state_cty_amt'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_wk_state_cty_amt',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'bigint',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_bigint',
+  );
+
+  // Exported field_base: 'field_all_non_wk_titlexix_amt'.
+  $field_bases['field_all_non_wk_titlexix_amt'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_wk_titlexix_amt',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'bigint',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_bigint',
+  );
+
+  // Exported field_base: 'field_all_non_wk_titlexix_chk'.
+  $field_bases['field_all_non_wk_titlexix_chk'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_wk_titlexix_chk',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'Title XIX Medicaid waivers' => 'Title XIX Medicaid waivers',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
+  // Exported field_base: 'field_all_non_wk_total_expend'.
+  $field_bases['field_all_non_wk_total_expend'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_wk_total_expend',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'bigint',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_bigint',
+  );
+
+  // Exported field_base: 'field_all_non_work_total'.
+  $field_bases['field_all_non_work_total'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_non_work_total',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'bigint',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_bigint',
+  );
+
+  // Exported field_base: 'field_all_nonwork_separate_types'.
+  $field_bases['field_all_nonwork_separate_types'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_all_nonwork_separate_types',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'Yes' => 'Yes',
+        'No' => 'No',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_com_non_other_selfpy_check'.
   $field_bases['field_com_non_other_selfpy_check'] = array(
     'active' => 1,
@@ -2478,6 +2681,34 @@ function idd_survey_layout_field_default_field_bases() {
     'settings' => array(),
     'translatable' => 0,
     'type' => 'number_bigint',
+  );
+
+  // Exported field_base: 'field_non_wk_state_cty_chk'.
+  $field_bases['field_non_wk_state_cty_chk'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_id_type' => NULL,
+    'entity_types' => array(),
+    'field_name' => 'field_non_wk_state_cty_chk',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'State, county, or local IDD funds' => 'State, county, or local IDD funds',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_of_the_total_number_of_ind'.

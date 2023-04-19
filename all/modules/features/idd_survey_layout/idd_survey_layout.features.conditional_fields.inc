@@ -264,6 +264,482 @@ function idd_survey_layout_conditional_fields_default_fields() {
     array(
       'entity' => 'node',
       'bundle' => 'idd_survey',
+      'dependent' => 'field_all_non_wk_other_amt',
+      'dependee' => 'field_all_non_wk_oth_selfpay_chk',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => array(
+          'Other (self-pay, JTPA, grants, DD Council, etc.)' => 'Other (self-pay, JTPA, grants, DD Council, etc.)',
+        ),
+        'value' => array(
+          0 => array(
+            'value' => 'Other (self-pay, JTPA, grants, DD Council, etc.)',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_all_non_wk_state_cty_amt',
+      'dependee' => 'field_non_wk_state_cty_chk',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => array(
+          'State, county, or local IDD funds' => 'State, county, or local IDD funds',
+        ),
+        'value' => array(
+          0 => array(
+            'value' => 'State, county, or local IDD funds',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_all_non_wk_titlexix_amt',
+      'dependee' => 'field_all_non_wk_titlexix_chk',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => array(
+          'Title XIX Medicaid waivers' => 'Title XIX Medicaid waivers',
+        ),
+        'value' => array(
+          0 => array(
+            'value' => 'Title XIX Medicaid waivers',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_all_non_wk_total_expend',
+      'dependee' => 'field_all_nonwork_separate_types',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'No',
+        'value' => array(
+          0 => array(
+            'value' => 'No',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_all_non_work_total',
+      'dependee' => 'field_all_nonwork_separate_types',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'No',
+        'value' => array(
+          0 => array(
+            'value' => 'No',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
       'dependent' => 'field_com_non_other_selfpy_check',
       'dependee' => 'field_comm_does_state_offer',
       'options' => array(
@@ -679,6 +1155,100 @@ function idd_survey_layout_conditional_fields_default_fields() {
     array(
       'entity' => 'node',
       'bundle' => 'idd_survey',
+      'dependent' => 'field_comm_group_based_svc_num',
+      'dependee' => 'field_comm_does_state_offer',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'Yes',
+        'value' => array(
+          0 => array(
+            'value' => 'Yes',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
       'dependent' => 'field_comm_grp_based_y_n',
       'dependee' => 'field_comm_does_state_offer',
       'options' => array(
@@ -744,6 +1314,194 @@ function idd_survey_layout_conditional_fields_default_fields() {
             3 => 0,
           ),
           4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'Yes',
+        'value' => array(
+          0 => array(
+            'value' => 'Yes',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_comm_grp_based_y_n',
+      'dependee' => 'field_comm_does_state_offer',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'Yes',
+        'value' => array(
+          0 => array(
+            'value' => 'Yes',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_comm_grp_based_y_n',
+      'dependee' => 'field_comm_does_state_offer',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
             1 => 1,
             3 => 0,
           ),
@@ -928,6 +1686,100 @@ function idd_survey_layout_conditional_fields_default_fields() {
     array(
       'entity' => 'node',
       'bundle' => 'idd_survey',
+      'dependent' => 'field_comm_ind_based_svcs_num',
+      'dependee' => 'field_comm_does_state_offer',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'Yes',
+        'value' => array(
+          0 => array(
+            'value' => 'Yes',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
       'dependent' => 'field_comm_other_amount',
       'dependee' => 'field_com_non_other_selfpy_check',
       'options' => array(
@@ -1005,6 +1857,100 @@ function idd_survey_layout_conditional_fields_default_fields() {
         'value' => array(
           0 => array(
             'value' => 'Other (self-pay, JTPA, grants, DD Council, etc.)',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_comm_other_amount',
+      'dependee' => 'field_comm_does_state_offer',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'Yes',
+        'value' => array(
+          0 => array(
+            'value' => 'Yes',
           ),
         ),
         'values' => array(),
@@ -2092,6 +3038,100 @@ function idd_survey_layout_conditional_fields_default_fields() {
         'value' => array(
           0 => array(
             'value' => 'Other (self-pay, JTPA, grants, DD Council, etc.)',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_fac_non_w_other_amt',
+      'dependee' => 'field_fac_bas_y_n',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'Yes',
+        'value' => array(
+          0 => array(
+            'value' => 'Yes',
           ),
         ),
         'values' => array(),
@@ -5351,6 +6391,100 @@ function idd_survey_layout_conditional_fields_default_fields() {
         'value' => array(
           0 => array(
             'value' => 'Department of Education/local school system',
+          ),
+        ),
+        'values' => array(),
+      ),
+    ),
+    array(
+      'entity' => 'node',
+      'bundle' => 'idd_survey',
+      'dependent' => 'field_integ_oth_ed_y_n',
+      'dependee' => 'field_integ_emp_svc_y_n',
+      'options' => array(
+        'state' => 'visible',
+        'condition' => 'value',
+        'grouping' => 'AND',
+        'effect' => 'show',
+        'effect_options' => array(),
+        'element_view' => array(
+          1 => 1,
+          2 => 2,
+          5 => 0,
+          3 => 0,
+          4 => 0,
+        ),
+        'element_view_per_role' => 0,
+        'element_view_roles' => array(
+          1 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            2 => 2,
+            5 => 0,
+            3 => 0,
+            4 => 0,
+          ),
+        ),
+        'element_edit' => array(
+          1 => 1,
+          3 => 0,
+        ),
+        'element_edit_per_role' => 0,
+        'element_edit_roles' => array(
+          1 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          2 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          3 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          4 => array(
+            1 => 1,
+            3 => 0,
+          ),
+          5 => array(
+            1 => 1,
+            3 => 0,
+          ),
+        ),
+        'selector' => '',
+        'values_set' => 1,
+        'value_form' => 'Yes',
+        'value' => array(
+          0 => array(
+            'value' => 'Yes',
           ),
         ),
         'values' => array(),
