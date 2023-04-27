@@ -22,12 +22,12 @@ function idd_survey_layout_field_group_info() {
   $field_group->parent_name = 'group_all_non_work';
   $field_group->data = array(
     'children' => array(
-      0 => 'field_all_non_wk_titlexix_chk',
-      1 => 'field_all_non_wk_titlexix_amt',
-      2 => 'field_non_wk_state_cty_chk',
-      3 => 'field_all_non_wk_state_cty_amt',
-      4 => 'field_all_non_wk_oth_selfpay_chk',
-      5 => 'field_all_non_wk_other_amt',
+      0 => 'field_all_non_wk_oth_selfpay_chk',
+      1 => 'field_all_non_wk_other_amt',
+      2 => 'field_all_non_wk_state_cty_amt',
+      3 => 'field_all_non_wk_titlexix_amt',
+      4 => 'field_all_non_wk_titlexix_chk',
+      5 => 'field_non_wk_state_cty_chk',
     ),
     'format_settings' => array(
       'formatter' => 'open',
@@ -60,10 +60,9 @@ function idd_survey_layout_field_group_info() {
   $field_group->parent_name = 'group_comm_bsd_non_work';
   $field_group->data = array(
     'children' => array(
-      0 => 'field_all_non_work_total',
+      0 => 'field_all_non_wk_comments',
       1 => 'field_all_non_wk_total_expend',
-      2 => 'field_all_non_wk_comments',
-      3 => 'group_all_non_wk_fund_amt',
+      2 => 'group_all_non_wk_fund_amt',
     ),
     'format_settings' => array(
       'formatter' => 'open',
@@ -82,7 +81,7 @@ Counts should include non-work services for which referral, program monitoring, 
     ),
     'format_type' => 'div',
     'label' => 'IV-All All non-work services',
-    'weight' => '192',
+    'weight' => '189',
   );
   $field_groups['group_all_non_work|node|idd_survey|form'] = $field_group;
 
@@ -119,7 +118,7 @@ Counts should include community-based non-work services for which referral, prog
     ),
     'format_type' => 'div',
     'label' => 'IV-CB Community based non work',
-    'weight' => '190',
+    'weight' => '187',
   );
   $field_groups['group_com_based_non_work|node|idd_survey|form'] = $field_group;
 
@@ -169,16 +168,16 @@ Counts should include community-based non-work services for which referral, prog
   $field_group->parent_name = 'group_idd_survey_sections';
   $field_group->data = array(
     'children' => array(
-      0 => 'group_com_based_non_work',
-      1 => 'group_fac_based_non_work',
-      2 => 'group_all_non_work',
+      0 => 'group_fac_based_non_work',
+      1 => 'group_all_non_work',
+      2 => 'group_com_based_non_work',
       3 => 'group_nonwork_checks',
     ),
     'format_settings' => array(
       'formatter' => 'closed',
       'instance_settings' => array(
         'classes' => '',
-        'description' => '<h2>IV. Non-Work Services</h2><p><strong>Nonwork services include all day services that support an individual to participate in activities in a community or in a program setting that they do not receive pay for.</strong></p>
+        'description' => '<h2>IV. Non-Work Services</h2><p><strong>Nonwork services include all day services that support an individual to participate in activities in a community or in a program setting where they do not receive pay.</strong></p>
 <p><strong>Community-based non-work services</strong> are services that are explicitly focused on supporting people to participate in individually chosen and scheduled activities and at locations in the community that members of the general community participate in and access. Activities may include:  volunteer work; postsecondary, adult, or continuing education; accessing community facilities such as the library, gym, or recreation center; any activities that people with and without disabilities do in their spare time. May include activities that support career exploration, wrap around work time, or serve as a retirement option. This service is sometimes referred to as Community Life Engagement, Community-Based Day or Community-Based Non-Work. </p><p>
 <strong>Facility-based non-work services</strong> are services that are located in a program setting where the majority of participants have a disability. These activities include but are not limited to: psychosocial skills development, activities of daily living, recreation, and/or professional therapies (e.g., occupational, physical, and speech therapies). Individuals may participate in community outings and activities, but the majority of an individual\'s time is spent in the program setting, and continuous supports and supervision are provided to all participants with disabilities. This service category is also referred to as Day Activity, Day Habilitation, and Medical Day Care programs. </p>',
         'required_fields' => 1,
@@ -408,7 +407,7 @@ Counts should include facility-based non-work services for which referral, progr
     ),
     'format_type' => 'div',
     'label' => 'IV-FB Facility based non work',
-    'weight' => '191',
+    'weight' => '188',
   );
   $field_groups['group_fac_based_non_work|node|idd_survey|form'] = $field_group;
 
@@ -618,8 +617,8 @@ Counts should include facility-based non-work services for which referral, progr
       2 => 'field_fac_other_entity_y_n',
       3 => 'field_fac_total_expendit',
       4 => 'field_fac_comments',
-      5 => 'group_fac_other_entities',
-      6 => 'group_fac_amt',
+      5 => 'group_fac_amt',
+      6 => 'group_fac_other_entities',
     ),
     'format_settings' => array(
       'formatter' => 'closed',
@@ -750,13 +749,13 @@ Counts should include facility-based work services for which referral, program m
   $field_group->parent_name = '';
   $field_group->data = array(
     'children' => array(
-      0 => 'group_number_served',
-      1 => 'group_integ_employ_svces',
+      0 => 'group_comm_bsd_non_work',
+      1 => 'group_contact_info',
       2 => 'group_facility_based',
-      3 => 'group_comm_bsd_non_work',
-      4 => 'group_oth_emp_day_svcs',
-      5 => 'group_final_step',
-      6 => 'group_contact_info',
+      3 => 'group_final_step',
+      4 => 'group_integ_employ_svces',
+      5 => 'group_number_served',
+      6 => 'group_oth_emp_day_svcs',
     ),
     'format_settings' => array(
       'formatter' => '',
@@ -1008,9 +1007,9 @@ Counts should include facility-based work services for which referral, program m
       2 => 'field_integ_other_agencies',
       3 => 'field_integ_total_expenditure',
       4 => 'field_integ_comments',
-      5 => 'group_integ_other_agc_subgroup',
+      5 => 'group_ii1_subques',
       6 => 'group_integ_fund_amt',
-      7 => 'group_ii1_subques',
+      7 => 'group_integ_other_agc_subgroup',
       8 => 'group_subques_ii2',
     ),
     'format_settings' => array(
@@ -1205,7 +1204,8 @@ Counts should include integrated employment services for which referral, program
     'children' => array(
       0 => 'field_comm_does_state_offer',
       1 => 'field_fac_bas_y_n',
-      2 => 'field_all_nonwork_separate_types',
+      2 => 'field_all_non_work_total',
+      3 => 'field_all_nonwork_separate_types',
     ),
     'format_settings' => array(
       'formatter' => 'open',

@@ -978,7 +978,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'bigint',
       'settings' => array(),
       'type' => 'number_bigint',
-      'weight' => 187,
+      'weight' => 192,
     ),
   );
 
@@ -1016,7 +1016,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 192,
+      'weight' => 193,
     ),
   );
 
