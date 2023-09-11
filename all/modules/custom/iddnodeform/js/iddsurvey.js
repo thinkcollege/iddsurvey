@@ -476,6 +476,7 @@ var secIVAnumServed = null;
 var secVnumServed = null;
 var secVInumServed = null;
 var autoTtlIndvs = null;
+var allNworkEntrFundTtl = null;
 
 secIoneTot = processNumVars('edit-field-total-served-und-0-value',false);
 
