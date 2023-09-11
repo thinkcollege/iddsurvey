@@ -616,11 +616,11 @@ integNum = processNumVars('edit-field-integ-total-expenditure-und-0-value', true
 fbwNum = processNumVars('edit-field-fac-total-expendit-und-0-value', true) != '' ? processNumVars('edit-field-fac-total-expendit-und-0-value', true):0;
 cbNwNum = processNumVars('edit-field-comm-total-expenditure-und-0-value', true) != '' ? processNumVars('edit-field-comm-total-expenditure-und-0-value', true):0;
 fbNwNum = processNumVars('edit-field-fac-non-wk-tot-expend-und-0-value', true) != '' ? processNumVars('edit-field-fac-non-wk-tot-expend-und-0-value', true): 0;
-aNwNum = processNumVars('edit-field-all-non-work-total-und-0-value', true) != '' ? processNumVars('edit-field-all-non-work-total-und-0-value', true): 0;
+aNwNum = processNumVars('edit-field-all-non-wk-total-expend-und-0-value', true) != '' ? processNumVars('edit-field-all-non-wk-total-expend-und-0-value', true): 0;
 othEmNum = processNumVars('edit-field-oth-emp-day-total-funds-und-0-value', true) != '' ? processNumVars('edit-field-oth-emp-day-total-funds-und-0-value', true):0;
-var totNwNum = 0;
-if(fbNwNum > 0 || cbNwNum > 0) { totNwNum = fbNwNum +cbNwNum;} else { totNwNum = aNwNum;}
-            autoTotal = integNum + fbwNum + cbNwNum + fbNwNum + othEmNum;
+console.log('All nonwork number:' + aNwNum);
+
+            autoTotal = integNum + fbwNum + cbNwNum + fbNwNum + aNwNum + othEmNum;
             autoTotal = commifyNum(autoTotal);
             if( autoTotal && autoTotal != secIEntrFundTtl)  { $('#edit-field-save-and-return #finalTotals .whiteBlock .calcWarn').remove(); $('#finalTotals .whiteBlock').append('<span class="calcWarn">The value of total funds spent on day and employment services entered in Section I <u>$' + secIEntrFundTtl + '</u>  does not match the total of funds entered in the subsections enumerated above: <u><strong>$' + autoTotal +'</strong></u>.  Please check your figures to be sure they are accurate.</span>'); } else { if ($('#edit-field-save-and-return #finalTotals .calcWarn')) $('#edit-field-save-and-return #finalTotals .calcWarn').remove(); }
 }
