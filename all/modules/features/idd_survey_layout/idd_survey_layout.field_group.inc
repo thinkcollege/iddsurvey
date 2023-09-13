@@ -88,6 +88,76 @@ Counts should include non-work services for which referral, program monitoring, 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_all_nw|node|idd_survey|default';
+  $field_group->group_name = 'group_all_nw';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'idd_survey';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'children' => array(
+      0 => 'field_all_nonwork_separate_types',
+      1 => 'group_iv_comm_nw',
+      2 => 'group_v_fac_bas_nw',
+      3 => 'group_combined_nw',
+    ),
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'classes' => 'group-all-nw field-group-div',
+        'description' => '',
+        'effect' => 'none',
+        'id' => '',
+        'label_element' => 'h3',
+        'show_label' => 1,
+        'speed' => 'fast',
+      ),
+    ),
+    'format_type' => 'div',
+    'label' => 'IV. Non-work Services',
+    'weight' => '5',
+  );
+  $field_groups['group_all_nw|node|idd_survey|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_all_other_nw_sources|node|idd_survey|default';
+  $field_group->group_name = 'group_all_other_nw_sources';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'idd_survey';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_combined_nw';
+  $field_group->data = array(
+    'children' => array(
+      0 => 'field_all_non_wk_oth_selfpay_chk',
+      1 => 'field_all_non_wk_other_amt',
+      2 => 'field_all_non_wk_state_cty_amt',
+      3 => 'field_all_non_wk_titlexix_amt',
+      4 => 'field_all_non_wk_titlexix_chk',
+      5 => 'field_non_wk_state_cty_chk',
+    ),
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'classes' => 'group-all-other-nw-sources field-group-div',
+        'description' => '',
+        'effect' => 'none',
+        'id' => '',
+        'label_element' => 'h3',
+        'show_label' => 1,
+        'speed' => 'fast',
+      ),
+    ),
+    'format_type' => 'div',
+    'label' => 'Which of the following sources did your state use to fund all non-work services?',
+    'weight' => '13',
+  );
+  $field_groups['group_all_other_nw_sources|node|idd_survey|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_com_based_non_work|node|idd_survey|form';
   $field_group->group_name = 'group_com_based_non_work';
   $field_group->entity_type = 'node';
@@ -160,6 +230,40 @@ Counts should include community-based non-work services for which referral, prog
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_combined_nw|node|idd_survey|default';
+  $field_group->group_name = 'group_combined_nw';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'idd_survey';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_all_nw';
+  $field_group->data = array(
+    'children' => array(
+      0 => 'field_all_non_wk_comments',
+      1 => 'field_all_non_wk_total_expend',
+      2 => 'field_all_non_work_total',
+      3 => 'group_all_other_nw_sources',
+    ),
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'classes' => 'group-combined-nw field-group-div',
+        'description' => '',
+        'effect' => 'none',
+        'id' => '',
+        'label_element' => 'h3',
+        'show_label' => 1,
+        'speed' => 'fast',
+      ),
+    ),
+    'format_type' => 'div',
+    'label' => 'Combined non-work services',
+    'weight' => '13',
+  );
+  $field_groups['group_combined_nw|node|idd_survey|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_comm_bsd_non_work|node|idd_survey|form';
   $field_group->group_name = 'group_comm_bsd_non_work';
   $field_group->entity_type = 'node';
@@ -177,7 +281,9 @@ Counts should include community-based non-work services for which referral, prog
       'formatter' => 'closed',
       'instance_settings' => array(
         'classes' => '',
-        'description' => '<h2>IV. Non-Work Services</h2><p><strong>Nonwork services include all day services that support an individual to participate in activities in a community or in a program setting where they do not receive pay.</strong></p>
+        'description' => '<h2>IV. Non-Work Services</h2><p><strong>Nonwork services include all day services that support an individual to participate in activities in a community or in a program setting where they do not receive pay. Some states differentiate these services into community-based non-work services and facility-based non-work services. Other states do not have the ability to separate those services within their documentation system.
+
+ </strong></p>
 <p><strong>Community-based non-work services</strong> are services that are explicitly focused on supporting people to participate in individually chosen and scheduled activities and at locations in the community that members of the general community participate in and access. Activities may include:  volunteer work; postsecondary, adult, or continuing education; accessing community facilities such as the library, gym, or recreation center; any activities that people with and without disabilities do in their spare time. May include activities that support career exploration, wrap around work time, or serve as a retirement option. This service is sometimes referred to as Community Life Engagement, Community-Based Day or Community-Based Non-Work. </p><p>
 <strong>Facility-based non-work services</strong> are services that are located in a program setting where the majority of participants have a disability. These activities include but are not limited to: psychosocial skills development, activities of daily living, recreation, and/or professional therapies (e.g., occupational, physical, and speech therapies). Individuals may participate in community outings and activities, but the majority of an individual\'s time is spent in the program setting, and continuous supports and supervision are provided to all participants with disabilities. This service category is also referred to as Day Activity, Day Habilitation, and Medical Day Care programs. </p>',
         'required_fields' => 1,
@@ -734,7 +840,7 @@ Counts should include facility-based work services for which referral, program m
     ),
     'format_type' => 'div',
     'label' => 'I. Fiscal year (FY) totals for all employment and day services',
-    'weight' => '3',
+    'weight' => '2',
   );
   $field_groups['group_i_empday|node|idd_survey|default'] = $field_group;
 
@@ -856,7 +962,7 @@ Counts should include facility-based work services for which referral, program m
     ),
     'format_type' => 'div',
     'label' => 'II Integrated employment services',
-    'weight' => '4',
+    'weight' => '3',
   );
   $field_groups['group_ii_int|node|idd_survey|default'] = $field_group;
 
@@ -906,7 +1012,7 @@ Counts should include facility-based work services for which referral, program m
     ),
     'format_type' => 'div',
     'label' => 'III. Facility-based work services',
-    'weight' => '5',
+    'weight' => '4',
   );
   $field_groups['group_iii_fac_work|node|idd_survey|default'] = $field_group;
 
@@ -1157,7 +1263,7 @@ Counts should include integrated employment services for which referral, program
   $field_group->entity_type = 'node';
   $field_group->bundle = 'idd_survey';
   $field_group->mode = 'default';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_all_nw';
   $field_group->data = array(
     'children' => array(
       0 => 'field_comm_does_state_offer',
@@ -1170,8 +1276,7 @@ Counts should include integrated employment services for which referral, program
       7 => 'field_comm_comments',
       8 => 'field_comm_other_amount',
       9 => 'field_com_non_other_selfpy_check',
-      10 => 'group_v_fac_bas_nw',
-      11 => 'group_com_nw_2a_srcs',
+      10 => 'group_com_nw_2a_srcs',
     ),
     'format_settings' => array(
       'formatter' => 'collapsible',
@@ -1181,13 +1286,14 @@ Counts should include integrated employment services for which referral, program
         'effect' => 'none',
         'id' => '',
         'label_element' => 'h3',
-        'show_label' => 1,
+        'show_label' => '1',
         'speed' => 'fast',
       ),
+      'label' => 'Community-based non-work services',
     ),
     'format_type' => 'div',
-    'label' => 'IV. Community-based non-work services',
-    'weight' => '6',
+    'label' => 'Community-based non-work services',
+    'weight' => '11',
   );
   $field_groups['group_iv_comm_nw|node|idd_survey|default'] = $field_group;
 
@@ -1302,7 +1408,7 @@ Counts should include integrated employment services for which referral, program
     ),
     'format_type' => 'div',
     'label' => '3a. Which of the following sources did your state agency use to fund other employment and day services in the FY?',
-    'weight' => '10',
+    'weight' => '11',
   );
   $field_groups['group_oth_3a_srcs|node|idd_survey|default'] = $field_group;
 
@@ -1366,7 +1472,7 @@ Counts should include integrated employment services for which referral, program
       'formatter' => 'closed',
       'instance_settings' => array(
         'classes' => '',
-        'description' => '<h2>V. Other employment and day services</h2><p><strong>List the total count of individuals who received employment and day services that do not match the descriptions for the previous five service categories.</strong></p><p>For example your state may choose to report data in the other category if you cannot separate non-work services into community and facility based settings. Counts should include integrated employment services for which referral, monitoring, or case management are provided by your state IDD agency and/or state Medicaid authority. </p>',
+        'description' => '<h2>V. Other employment and day services</h2><p><strong>List the total count of individuals who received employment and day services that do not match the descriptions for the previous service categories.</strong></p><p>Please include services here that you are unable to categorize under the previous service types. Please include a definition of the service in the comments section. </p>',
         'required_fields' => 1,
       ),
       'label' => 'V. Other employment and day services',
@@ -1491,7 +1597,7 @@ Counts should include integrated employment services for which referral, program
   $field_group->entity_type = 'node';
   $field_group->bundle = 'idd_survey';
   $field_group->mode = 'default';
-  $field_group->parent_name = 'group_iv_comm_nw';
+  $field_group->parent_name = 'group_all_nw';
   $field_group->data = array(
     'children' => array(
       0 => 'field_fac_bas_y_n',
@@ -1508,13 +1614,14 @@ Counts should include integrated employment services for which referral, program
         'effect' => 'none',
         'id' => '',
         'label_element' => 'h3',
-        'show_label' => 1,
+        'show_label' => '1',
         'speed' => 'fast',
       ),
+      'label' => 'Facility-based non-work services',
     ),
     'format_type' => 'div',
-    'label' => 'V. Facility-based non-work services',
-    'weight' => '16',
+    'label' => 'Facility-based non-work services',
+    'weight' => '12',
   );
   $field_groups['group_v_fac_bas_nw|node|idd_survey|default'] = $field_group;
 
@@ -1544,13 +1651,14 @@ Counts should include integrated employment services for which referral, program
         'effect' => 'none',
         'id' => '',
         'label_element' => 'h3',
-        'show_label' => 1,
+        'show_label' => '1',
         'speed' => 'fast',
       ),
+      'label' => 'V. Other employment and day services',
     ),
     'format_type' => 'div',
-    'label' => 'VI. Other employment and day services',
-    'weight' => '7',
+    'label' => 'V. Other employment and day services',
+    'weight' => '8',
   );
   $field_groups['group_vi_oth_empday|node|idd_survey|default'] = $field_group;
 
@@ -1566,7 +1674,10 @@ Counts should include integrated employment services for which referral, program
   t('3a. Which of the following sources did your state agency use to fund other employment and day services in the FY?');
   t('4a. Which of the following did your state agency use to fund integrated employment services? Check all that apply');
   t('4a. Which of the following sources did your state agency use to fund employment and day services in this fiscal year?');
+  t('Combined non-work services');
+  t('Community-based non-work services');
   t('Contact Information');
+  t('Facility-based non-work services');
   t('General Contact Information');
   t('I. Fiscal year (FY) totals for all employment and day services');
   t('II Integrated employment services');
@@ -1576,7 +1687,7 @@ Counts should include integrated employment services for which referral, program
   t('IV-All All non-work services');
   t('IV-CB Community based non work');
   t('IV-FB Facility based non work');
-  t('IV. Community-based non-work services');
+  t('IV. Non-work Services');
   t('IV. Non-work services');
   t('IV1 Subquestions');
   t('Nonwork checks');
@@ -1587,7 +1698,7 @@ Counts should include integrated employment services for which referral, program
   t('V. Facility-based non-work services');
   t('V. Other employment and day services');
   t('VI. Final Step ');
-  t('VI. Other employment and day services');
+  t('Which of the following sources did your state use to fund all non-work services?');
 
   return $field_groups;
 }

@@ -644,7 +644,7 @@ function idd_survey_layout_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 65,
+        'weight' => 20,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -685,7 +685,7 @@ function idd_survey_layout_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 63,
+        'weight' => 18,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -727,7 +727,7 @@ function idd_survey_layout_field_default_field_instances() {
           'thousand_separator' => ',',
         ),
         'type' => 'number_bigint',
-        'weight' => 64,
+        'weight' => 19,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -774,7 +774,7 @@ function idd_survey_layout_field_default_field_instances() {
           'thousand_separator' => ',',
         ),
         'type' => 'number_bigint',
-        'weight' => 62,
+        'weight' => 17,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -821,7 +821,7 @@ function idd_survey_layout_field_default_field_instances() {
           'thousand_separator' => ',',
         ),
         'type' => 'number_bigint',
-        'weight' => 60,
+        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -863,7 +863,7 @@ function idd_survey_layout_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 59,
+        'weight' => 14,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -905,7 +905,7 @@ function idd_survey_layout_field_default_field_instances() {
           'thousand_separator' => ',',
         ),
         'type' => 'number_bigint',
-        'weight' => 58,
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -952,7 +952,7 @@ function idd_survey_layout_field_default_field_instances() {
           'thousand_separator' => ',',
         ),
         'type' => 'number_bigint',
-        'weight' => 57,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -978,7 +978,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'bigint',
       'settings' => array(),
       'type' => 'number_bigint',
-      'weight' => 192,
+      'weight' => 193,
     ),
   );
 
@@ -995,7 +995,7 @@ function idd_survey_layout_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 56,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1016,7 +1016,7 @@ function idd_survey_layout_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 193,
+      'weight' => 192,
     ),
   );
 
@@ -3914,7 +3914,7 @@ function idd_survey_layout_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'print' => array(
         'label' => 'above',
@@ -5686,7 +5686,7 @@ function idd_survey_layout_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 61,
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -5783,7 +5783,7 @@ function idd_survey_layout_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 17,
+        'weight' => 12,
       ),
       'print' => array(
         'label' => 'above',
@@ -6471,7 +6471,7 @@ function idd_survey_layout_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 20,
       ),
       'print' => array(
         'label' => 'above',
@@ -6707,7 +6707,7 @@ function idd_survey_layout_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 22,
       ),
       'print' => array(
         'label' => 'above',
@@ -7111,7 +7111,7 @@ function idd_survey_layout_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 21,
       ),
       'print' => array(
         'label' => 'above',
