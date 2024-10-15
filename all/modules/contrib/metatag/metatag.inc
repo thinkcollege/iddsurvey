@@ -466,10 +466,17 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       $form['value']['#description'] .= ' ' . t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
     }
 
-    // Optionally limit the field to a certain length.
-    $maxlength = $this->maxlength();
-    if (!empty($maxlength)) {
-      $form['value']['#description'] .= ' ' . t('This will be truncated to a maximum of %max characters.', array('%max' => $maxlength));
+    // Optionally limit the field to a certain length, and support the Maxlength
+    // module if it is available.
+    $maxlength = (int) $this->maxlength();
+    if (!empty($maxlength) && $maxlength > 0) {
+      $form['value']['#description'] .= ' ' . t('This will be truncated to a maximum of %max characters after any tokens are processsed.', array('%max' => $maxlength));
+
+      // Optional support for the Maxlength module.
+      if (variable_get('metatag_use_maxlength', TRUE)) {
+        $form['value']['#maxlength_js'] = TRUE;
+        $form['value']['#maxlength'] = $maxlength;
+      }
     }
 
     // Optional handling for images.
@@ -512,6 +519,12 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
    * {@inheritdoc}
    */
   public function getValue(array $options = array()) {
+    // If the value wasn't set there's no point in proceeding. Also, this type
+    // of tag should not have arrays passed to it.
+    if (!isset($this->data['value']) || !is_string($this->data['value'])) {
+      return '';
+    }
+
     $options += array(
       'instance' => '',
       'token data' => array(),
@@ -520,11 +533,6 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       'sanitize' => variable_get('metatag_token_sanitize', FALSE),
       'raw' => FALSE,
     );
-
-    // If the value wasn't set there's no point in proceeding.
-    if (!isset($this->data['value'])) {
-      return '';
-    }
 
     // If entity_translation_hierarchy is being used then ensure tokens and
     // strings are generated using the current language rather than the

@@ -8,8 +8,8 @@ dependencies[] = metatag:metatag
 ; Tests.
 files[] = tests/MetatagDevelTest.test
 
-; Information added by Drupal.org packaging script on 2023-02-28
-version = "7.x-1.30+13-dev"
+; Information added by Drupal.org packaging script on 2023-05-26
+version = "7.x-1.32"
 core = "7.x"
 project = "metatag"
-datestamp = "1677622092"
+datestamp = "1685130949"

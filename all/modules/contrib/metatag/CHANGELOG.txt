@@ -1,4 +1,13 @@
-Metatag 7.x-1.xx, 2022-xx-xx
+Metatag 7.x-1.32, 2023-05-26
+----------------------------
+#3360190 by mparker17, DamienMcKenna, rclemings: Unnecessary watchdog messages:
+  The basic/advanced tag group is missing a value for the description element.
+#3360841 by DamienMcKenna: Remove the NOYDIR, NOODP robots options.
+#2827909 by DamienMcKenna, cebasqueira, TynanFox: Remove deprecated Twitter
+  Card types.
+
+
+Metatag 7.x-1.31, 2023-05-12
 ----------------------------
 #2217549 by DamienMcKenna, Alan D., Kuldeep K, Antares89: Integration with the
   Diff module.
@@ -22,6 +31,11 @@ Metatag 7.x-1.xx, 2022-xx-xx
   default values.
 #3249349 by beatrizrodrigues, DamienMcKenna, wamwam: Error: Call to a member
   function tokenize_value() on null in function metatag_views_page_alter.
+#1918738 by DamienMcKenna, JeroenT, gowrann, Dave Reid: Character count on
+  fields via Maxlength integration.
+#3344475 by DamienMcKenna, circuscowboy: Must be of type string, array given in
+  strpos().
+#3359952 by DamienMcKenna: Rename logo file to just "logo.png".
 
 
 Metatag 7.x-1.30, 2022-07-27
