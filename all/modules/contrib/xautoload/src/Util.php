@@ -162,7 +162,8 @@ class Util {
       // Use the PHP 5.3.1+ way of doing this.
       return stream_resolve_include_path($file);
     }
-    elseif ($file{0} === '/') {
+    // Hack PF
+    elseif ($file[0] === '/') {
       // That's an absolute path already.
       return file_exists($file)
         ? $file
