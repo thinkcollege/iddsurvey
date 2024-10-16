@@ -124,7 +124,8 @@ class Util {
     // Clean up surplus '/' resulting from duplicate underscores, or an
     // underscore at the beginning of the class.
     while (FALSE !== $pos = strrpos('/' . $pear_logical_path, '//')) {
-      $pear_logical_path{$pos} = '_';
+      // Hack PF removed curly braces
+      $pear_logical_path[$pos] = '_';
     }
 
     return $pear_logical_path;
